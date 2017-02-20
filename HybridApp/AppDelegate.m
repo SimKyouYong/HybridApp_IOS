@@ -8,19 +8,33 @@
 
 #import "AppDelegate.h"
 #import "GlobalHeader.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    
+    // 사용중에만 위치 정보 요청
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    [locationManager startUpdatingLocation];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
+    
+    // GPS
+    if([defaults stringForKey:GPS_CHECK].length == 0){
+        [defaults setObject:@"ON" forKey:GPS_CHECK];
+    }
     
     // APNS 등록
     if([defaults stringForKey:TOKEN_KEY].length == 0){
@@ -39,6 +53,14 @@
     }
     
     return YES;
+}
+
+#pragma mark -
+#pragma mark GPS
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"%@", [locations lastObject]);
 }
 
 #pragma mark -

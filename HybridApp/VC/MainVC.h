@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PopupView.h"
 
 @interface MainVC : UIViewController{
+    NSUserDefaults *defaults;
+    
     NSString *fURL;
+    
+    UIActivityIndicatorView *activityView;
+    UIView *loadingView;
+    UILabel *loadingLabel;
+    
+    PopupView *popupView;
 }
 
 @property (weak, nonatomic) IBOutlet UIWebView *mainWebView;
@@ -20,5 +29,8 @@
 - (IBAction)refreshButton:(id)sender;
 - (IBAction)dropButton:(id)sender;
 
+@end
 
+@interface UIWebView (Javascript)
+- (void)webView:(UIWebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message     initiatedByFrame:(id *)frame;
 @end

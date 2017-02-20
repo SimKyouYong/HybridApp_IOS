@@ -15,6 +15,8 @@
 		FF2E25F71E5705FF0050399D /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25F61E5705FF0050399D /* MainVC.m */; };
 		FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25FB1E578A270050399D /* UIView+Toast.m */; };
 		FF2E26011E578D610050399D /* WebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E26001E578D610050399D /* WebViewVC.m */; };
+		FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */; };
+		FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,10 @@
 		FF2E25FB1E578A270050399D /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		FF2E25FF1E578D610050399D /* WebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewVC.h; sourceTree = "<group>"; };
 		FF2E26001E578D610050399D /* WebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewVC.m; sourceTree = "<group>"; };
+		FF8BE2ED1E5AF83F00ECD7D3 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
+		FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
+		FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FF8BE2F31E5AFBA300ECD7D3 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +58,7 @@
 			children = (
 				FF2E25D91E5705A50050399D /* HybridApp */,
 				FF2E25D81E5705A50050399D /* Products */,
+				FF8BE2F01E5AFB9E00ECD7D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				FF2E25F81E5783AF0050399D /* GlobalHeader.h */,
+				FF8BE2ED1E5AF83F00ECD7D3 /* PopupView.h */,
+				FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -129,6 +139,15 @@
 				FF2E25FB1E578A270050399D /* UIView+Toast.m */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		FF8BE2F01E5AFB9E00ECD7D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF8BE2F31E5AFBA300ECD7D3 /* AddressBook.framework */,
+				FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +224,7 @@
 				FF2E26011E578D610050399D /* WebViewVC.m in Sources */,
 				FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */,
 				FF2E25F71E5705FF0050399D /* MainVC.m in Sources */,
+				FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */,
 				FF2E25DF1E5705A50050399D /* AppDelegate.m in Sources */,
 				FF2E25DC1E5705A50050399D /* main.m in Sources */,
 			);
@@ -327,7 +347,7 @@
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jcone.HybridApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hybridapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -339,7 +359,7 @@
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jcone.HybridApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hybridapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

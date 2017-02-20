@@ -11,3 +11,8 @@
 
 // NSUserDefaults
 #define TOKEN_KEY               @"token_key"
+#define GPS_CHECK               @"gps_check"
+
+// ON ? OFF
+#define POPUP_VIEW_ON_OFF       @"ON"
+#define PROGRESS_ON_OFF         @"ON"
