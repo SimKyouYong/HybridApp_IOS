@@ -21,25 +21,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
-    // 사용중에만 위치 정보 요청
-    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [locationManager requestWhenInUseAuthorization];
-    }
-    [locationManager startUpdatingLocation];
     
     //맵사용 승인이 안된 경우 메시지 출력등의 액션처리
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"알림" message:@"위치 접근 비허용으로 되어있습니다.\n(설정-개인정보보호-위치서비스)\n위치 접근 허용으로 체크해주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
-        [alertView show];
+        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"알림" message:@"위치 접근 비허용으로 되어있습니다.\n(설정-개인정보보호-위치서비스)\n위치 접근 허용으로 체크해주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        //[alertView show];
+    }
+    // GPS Check Alert
+    if([GPS_ON_OFF isEqualToString:@"ON"]){
+        
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
-    
-    // GPS
-    if([defaults stringForKey:GPS_CHECK].length == 0){
-        [defaults setObject:@"ON" forKey:GPS_CHECK];
-    }
     
     // APNS 등록
     if([defaults stringForKey:TOKEN_KEY].length == 0){
@@ -56,6 +50,12 @@
             [[UIApplication sharedApplication] registerForRemoteNotifications];
         }
     }
+    
+    // 사용중에만 위치 정보 요청
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    [locationManager startUpdatingLocation];
     
     return YES;
 }
@@ -81,19 +81,38 @@
     [defaults synchronize];
     
     NSString *devToken = [[[[deviceToken description]stringByReplacingOccurrencesOfString:@"<" withString:@""]stringByReplacingOccurrencesOfString:@">" withString:@""]stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
     NSLog(@"device token : %@", devToken);
     [defaults setObject:devToken forKey:TOKEN_KEY];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@?reg_id=%@&type=ios", TOKEN_URL, devToken];
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSMutableURLRequest * urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    [urlRequest setHTTPMethod:@"GET"];
+    
+    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSLog(@"Response:%@ %@\n", response, error);
+    }];
+    [dataTask resume];
 }
 
 // registerForRemoteNotificationTyles 결과 실패했을 때 호출됨
 - (void) application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    //NSLog(@"didFailToRegisterForRemoteNotificationsWithError : %@", error);
+    NSLog(@"didFailToRegisterForRemoteNotificationsWithError : %@", error);
 }
 
 // 어플리케이션이 실행줄일 때 노티피케이션을 받았을떄 호출됨
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     NSLog(@"userInfo %@", userInfo);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    completionHandler(UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
+    completionHandler();
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

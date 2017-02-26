@@ -11,12 +11,16 @@
 		FF2E25DF1E5705A50050399D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25DE1E5705A50050399D /* AppDelegate.m */; };
 		FF2E25E51E5705A50050399D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2E25E31E5705A50050399D /* Main.storyboard */; };
 		FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF2E25E61E5705A50050399D /* Assets.xcassets */; };
-		FF2E25EA1E5705A50050399D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2E25E81E5705A50050399D /* LaunchScreen.storyboard */; };
 		FF2E25F71E5705FF0050399D /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25F61E5705FF0050399D /* MainVC.m */; };
 		FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25FB1E578A270050399D /* UIView+Toast.m */; };
 		FF2E26011E578D610050399D /* WebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E26001E578D610050399D /* WebViewVC.m */; };
 		FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */; };
 		FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */; };
+		FF8BE3571E61C37F00ECD7D3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */; };
+		FF8BE3591E61C52000ECD7D3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3581E61C52000ECD7D3 /* MapKit.framework */; };
+		FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */; };
+		FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */; };
+		FF8BE3611E61E11000ECD7D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +30,6 @@
 		FF2E25DE1E5705A50050399D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FF2E25E41E5705A50050399D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF2E25E61E5705A50050399D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FF2E25E91E5705A50050399D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF2E25EB1E5705A50050399D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF2E25F51E5705FF0050399D /* MainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainVC.h; sourceTree = "<group>"; };
 		FF2E25F61E5705FF0050399D /* MainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainVC.m; sourceTree = "<group>"; };
@@ -39,6 +42,13 @@
 		FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FF8BE2F31E5AFBA300ECD7D3 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		FF8BE3551E61BFE300ECD7D3 /* HybridApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HybridApp.entitlements; sourceTree = "<group>"; };
+		FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		FF8BE3581E61C52000ECD7D3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FF8BE35D1E61E0F100ECD7D3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF8BE3611E61E11000ECD7D3 /* SystemConfiguration.framework in Frameworks */,
+				FF8BE3571E61C37F00ECD7D3 /* UserNotifications.framework in Frameworks */,
+				FF8BE3591E61C52000ECD7D3 /* MapKit.framework in Frameworks */,
 				FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +86,7 @@
 		FF2E25D91E5705A50050399D /* HybridApp */ = {
 			isa = PBXGroup;
 			children = (
+				FF8BE3551E61BFE300ECD7D3 /* HybridApp.entitlements */,
 				FF2E25F21E5705E30050399D /* Lib */,
 				FF2E25F11E5705E30050399D /* Common */,
 				FF2E25F41E5705E30050399D /* VC */,
@@ -81,8 +95,8 @@
 				FF2E25E31E5705A50050399D /* Main.storyboard */,
 				FF2E25F31E5705E30050399D /* Resources */,
 				FF2E25E61E5705A50050399D /* Assets.xcassets */,
-				FF2E25E81E5705A50050399D /* LaunchScreen.storyboard */,
 				FF2E25EB1E5705A50050399D /* Info.plist */,
+				FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */,
 				FF2E25DA1E5705A50050399D /* Supporting Files */,
 			);
 			path = HybridApp;
@@ -109,6 +123,7 @@
 		FF2E25F21E5705E30050399D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				FF8BE35C1E61E0F100ECD7D3 /* Reachability */,
 				FF2E25F91E578A270050399D /* Toast */,
 			);
 			path = Lib;
@@ -144,10 +159,22 @@
 		FF8BE2F01E5AFB9E00ECD7D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */,
+				FF8BE3581E61C52000ECD7D3 /* MapKit.framework */,
+				FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */,
 				FF8BE2F31E5AFBA300ECD7D3 /* AddressBook.framework */,
 				FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF8BE35C1E61E0F100ECD7D3 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				FF8BE35D1E61E0F100ECD7D3 /* Reachability.h */,
+				FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,7 +208,16 @@
 				TargetAttributes = {
 					FF2E25D61E5705A50050399D = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = YZXM7V6SDM;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -208,7 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF2E25EA1E5705A50050399D /* LaunchScreen.storyboard in Resources */,
+				FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */,
 				FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */,
 				FF2E25E51E5705A50050399D /* Main.storyboard in Resources */,
 			);
@@ -224,6 +260,7 @@
 				FF2E26011E578D610050399D /* WebViewVC.m in Sources */,
 				FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */,
 				FF2E25F71E5705FF0050399D /* MainVC.m in Sources */,
+				FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */,
 				FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */,
 				FF2E25DF1E5705A50050399D /* AppDelegate.m in Sources */,
 				FF2E25DC1E5705A50050399D /* main.m in Sources */,
@@ -239,14 +276,6 @@
 				FF2E25E41E5705A50050399D /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FF2E25E81E5705A50050399D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FF2E25E91E5705A50050399D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -292,7 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -333,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -344,11 +373,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = HybridApp/HybridApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilseo Park (5A88U797YJ)";
+				DEVELOPMENT_TEAM = YZXM7V6SDM;
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hybridapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";
+				PROVISIONING_PROFILE_SPECIFIER = HybridAppDev;
 			};
 			name = Debug;
 		};
@@ -356,11 +391,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = HybridApp/HybridApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilseo Park (5A88U797YJ)";
+				DEVELOPMENT_TEAM = YZXM7V6SDM;
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hybridapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";
+				PROVISIONING_PROFILE_SPECIFIER = HybridAppDev;
 			};
 			name = Release;
 		};

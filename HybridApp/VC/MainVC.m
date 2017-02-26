@@ -11,6 +11,7 @@
 #import "WebViewVC.h"
 #import "GlobalHeader.h"
 #import <CoreLocation/CoreLocation.h>
+#import "Reachability.h"
 
 @interface MainVC ()<CLLocationManagerDelegate>
 
@@ -57,6 +58,29 @@
     popupView.hidden = YES;
     
     [self.view bringSubviewToFront:loadingView];
+}
+
+#pragma mark -
+#pragma mark Network Connect
+
+- (BOOL)connectedToNetwork
+{
+    /*
+     www.apple.com URL을 통해 인터넷 연결 상태를 확인합니다.
+     ReachableViaWiFi && ReachableViaWWAN
+     : Wi-fi와 LTE 둘다 안된다면 인터넷이 연결되지 않은 상태입니다.
+     */
+    
+    Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    NetworkStatus internetStatus = [r currentReachabilityStatus];
+    BOOL internet;
+    
+    if ((internetStatus != ReachableViaWiFi) && (internetStatus != ReachableViaWWAN)) {
+        internet = NO;
+    } else {
+        internet = YES;
+    }
+    return internet;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,7 +172,12 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"start");
     
-    [self loadingStart];
+    if([self connectedToNetwork] == 0){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"네트워크에 접속할 수 없습니다." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        [alertView show];
+    }else{
+        [self loadingStart];
+    }
 }
 
 // 웹뷰가 컨텐츠를 모두 읽은 후에 실행된다.

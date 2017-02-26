@@ -11,8 +11,15 @@
 
 // NSUserDefaults
 #define TOKEN_KEY               @"token_key"
-#define GPS_CHECK               @"gps_check"
+
+#define TOKEN_URL               @"http://snap40.cafe24.com/Hybrid/hybrid_register.php"
 
 // ON ? OFF
+// 팝업 뷰 ON - OFF
 #define POPUP_VIEW_ON_OFF       @"ON"
+
+// 프로그레스바 ON - OFF
 #define PROGRESS_ON_OFF         @"ON"
+
+// GPS ON - OFF
+#define GPS_ON_OFF              @"ON"
