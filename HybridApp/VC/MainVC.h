@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PopupView.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface MainVC : UIViewController{
+@interface MainVC : UIViewController<CLLocationManagerDelegate>{
     NSUserDefaults *defaults;
     
     NSString *fURL;
@@ -20,6 +21,8 @@
     
     PopupView *popupView;
 }
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UIWebView *mainWebView;
 

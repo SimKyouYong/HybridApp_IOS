@@ -13,6 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @interface MainVC ()<CLLocationManagerDelegate>
 
 @end
@@ -23,7 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.delegate = self;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     
@@ -58,6 +65,16 @@
     popupView.hidden = YES;
     
     [self.view bringSubviewToFront:loadingView];
+    
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    else
+    {
+        [self.locationManager startUpdatingLocation];
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 #pragma mark -
@@ -149,7 +166,7 @@
         
         // 위도 경도
         }else if([fURL hasPrefix:@"js2ios://Location?"]){
-            CLLocationManager * locationManager = [[CLLocationManager alloc] init];
+            CLLocationManager *locationManager = [[CLLocationManager alloc] init];
             [locationManager startUpdatingLocation];
             [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
             [locationManager setDelegate:self];
@@ -160,7 +177,17 @@
             NSString *alertMsg = [NSString stringWithFormat:@"위도 : %f\n경도 : %f", coordinate.latitude, coordinate.longitude];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:alertMsg delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
             [alertView show];
-        }
+        
+        //ISP 호출하는 경우
+        }else if([fURL hasPrefix:@"ispmobile://"]) {
+                NSURL *appURL = [NSURL URLWithString:fURL];
+                if([[UIApplication sharedApplication] canOpenURL:appURL]) {
+                    [[UIApplication sharedApplication] openURL:appURL];
+                } else {
+                    //[self showAlertViewWithEvent:@"모바일 ISP가 설치되어 있지 않아\nApp Store로 이동합니다." tagNum:99];
+                    return NO;
+                }
+            }
         
         return NO;
     }
@@ -172,11 +199,13 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     NSLog(@"start");
     
-    if([self connectedToNetwork] == 0){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"네트워크에 접속할 수 없습니다." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
-        [alertView show];
-    }else{
-        [self loadingStart];
+    if([INTERNET_ON_OFF isEqualToString:@"ON"]){
+        if([self connectedToNetwork] == 0){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"네트워크에 접속할 수 없습니다." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+            [alertView show];
+        }else{
+            [self loadingStart];
+        }
     }
 }
 
@@ -237,6 +266,18 @@
     loadingView.hidden = YES;
     [activityView stopAnimating];
     popupView.hidden = YES;
+}
+
+#pragma mark -
+#pragma mark GPS
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"%@", [locations lastObject]);
+}
+
+- (void)startStandardUpdates {
+    NSLog(@"startStandardUpdates");
 }
 
 @end

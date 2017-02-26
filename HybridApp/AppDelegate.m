@@ -8,29 +8,27 @@
 
 #import "AppDelegate.h"
 #import "GlobalHeader.h"
-#import <CoreLocation/CoreLocation.h>
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-@interface AppDelegate ()<CLLocationManagerDelegate>
+@interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    
     //맵사용 승인이 안된 경우 메시지 출력등의 액션처리
+    /*
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        //UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"알림" message:@"위치 접근 비허용으로 되어있습니다.\n(설정-개인정보보호-위치서비스)\n위치 접근 허용으로 체크해주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
-        //[alertView show];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"알림" message:@"위치 접근 비허용으로 되어있습니다.\n(설정-개인정보보호-위치서비스)\n위치 접근 허용으로 체크해주세요." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+        [alertView show];
     }
     // GPS Check Alert
     if([GPS_ON_OFF isEqualToString:@"ON"]){
         
     }
+     */
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
@@ -51,25 +49,15 @@
         }
     }
     
+    /*
     // 사용중에만 위치 정보 요청
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [locationManager requestWhenInUseAuthorization];
     }
     [locationManager startUpdatingLocation];
+     */
     
     return YES;
-}
-
-#pragma mark -
-#pragma mark GPS
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    NSLog(@"%@", [locations lastObject]);
-}
-
-- (void)startStandardUpdates {
-    NSLog(@"startStandardUpdates");
 }
 
 #pragma mark -

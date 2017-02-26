@@ -23,3 +23,6 @@
 
 // GPS ON - OFF
 #define GPS_ON_OFF              @"ON"
+
+// 인터넷 체크(웹 URL) ON - OFF
+#define INTERNET_ON_OFF         @"ON"
