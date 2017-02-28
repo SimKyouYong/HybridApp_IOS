@@ -12,11 +12,12 @@
 #import "GlobalHeader.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
+#import "DrawerNavigation.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface MainVC ()<CLLocationManagerDelegate>
-
+@property (strong, nonatomic) DrawerNavigation *rootNav;
 @end
 
 @implementation MainVC
@@ -25,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.rootNav = (DrawerNavigation *)self.navigationController;
     
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
@@ -143,6 +146,21 @@
             NSArray *urlArr2 = [urlStr1 componentsSeparatedByString:@"&"];
             NSString *urlValue = [urlArr2 objectAtIndex:0];
             
+            NSArray *titleArr1 = [fURL componentsSeparatedByString:@"title="];
+            NSString *titleStr1 = [titleArr1 objectAtIndex:1];
+            NSArray *titleArr2 = [titleStr1 componentsSeparatedByString:@"&"];
+            NSString *titleValue = [titleArr2 objectAtIndex:0];
+            
+            NSArray *buttonArr1 = [fURL componentsSeparatedByString:@"button="];
+            NSString *buttonStr1 = [buttonArr1 objectAtIndex:1];
+            NSArray *buttonArr2 = [buttonStr1 componentsSeparatedByString:@"&"];
+            NSString *buttonValue = [buttonArr2 objectAtIndex:0];
+            
+            NSArray *buttonUrlArr1 = [fURL componentsSeparatedByString:@"button_url="];
+            NSString *buttonUrlStr1 = [buttonUrlArr1 objectAtIndex:1];
+            NSArray *buttonUrlArr2 = [buttonUrlStr1 componentsSeparatedByString:@"&"];
+            NSString *buttonUrlValue = [buttonUrlArr2 objectAtIndex:0];
+            
             NSString *supTypeValue = @"";
             if([appValue isEqualToString:@"top"]){
                 supTypeValue = kCATransitionFromTop;
@@ -156,13 +174,18 @@
             
             WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
             _webViewVC.urlString = urlValue;
+            _webViewVC.titleString = titleValue;
+            _webViewVC.buttonString = buttonValue;
+            _webViewVC.buttonUrlString = buttonUrlValue;
+            
             CATransition *transition = [CATransition animation];
             transition.duration = 0.4;
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             transition.type = kCATransitionPush;
             transition.subtype = supTypeValue;
             [self.view.window.layer addAnimation:transition forKey:nil];
-            [self presentViewController:_webViewVC animated:YES completion:nil];
+            [self.rootNav pushViewController:_webViewVC animated:NO];
+            //[self presentViewController:_webViewVC animated:YES completion:nil];
         
         // 위도 경도
         }else if([fURL hasPrefix:@"js2ios://Location?"]){

@@ -21,6 +21,12 @@
 		FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */; };
 		FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */; };
 		FF8BE3611E61E11000ECD7D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */; };
+		FF9375321E65EF9500462818 /* main_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = FF93752F1E65EF9500462818 /* main_top_bar.png */; };
+		FF9375331E65EF9500462818 /* main_top_menu_off.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9375301E65EF9500462818 /* main_top_menu_off.png */; };
+		FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9375311E65EF9500462818 /* main_top_menu_on.png */; };
+		FF93753B1E65EF9F00462818 /* DrawerNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375371E65EF9F00462818 /* DrawerNavigation.m */; };
+		FF93753C1E65EF9F00462818 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375391E65EF9F00462818 /* DrawerView.m */; };
+		FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF93753A1E65EF9F00462818 /* DrawerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +55,14 @@
 		FF8BE35D1E61E0F100ECD7D3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FF93752F1E65EF9500462818 /* main_top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_top_bar.png; sourceTree = "<group>"; };
+		FF9375301E65EF9500462818 /* main_top_menu_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_top_menu_off.png; sourceTree = "<group>"; };
+		FF9375311E65EF9500462818 /* main_top_menu_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_top_menu_on.png; sourceTree = "<group>"; };
+		FF9375361E65EF9F00462818 /* DrawerNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerNavigation.h; sourceTree = "<group>"; };
+		FF9375371E65EF9F00462818 /* DrawerNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerNavigation.m; sourceTree = "<group>"; };
+		FF9375381E65EF9F00462818 /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
+		FF9375391E65EF9F00462818 /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
+		FF93753A1E65EF9F00462818 /* DrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +107,7 @@
 				FF2E25DD1E5705A50050399D /* AppDelegate.h */,
 				FF2E25DE1E5705A50050399D /* AppDelegate.m */,
 				FF2E25E31E5705A50050399D /* Main.storyboard */,
-				FF2E25F31E5705E30050399D /* Resources */,
+				FF93752E1E65EF9500462818 /* Resources */,
 				FF2E25E61E5705A50050399D /* Assets.xcassets */,
 				FF2E25EB1E5705A50050399D /* Info.plist */,
 				FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */,
@@ -123,17 +137,11 @@
 		FF2E25F21E5705E30050399D /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				FF9375351E65EF9F00462818 /* Menu */,
 				FF8BE35C1E61E0F100ECD7D3 /* Reachability */,
 				FF2E25F91E578A270050399D /* Toast */,
 			);
 			path = Lib;
-			sourceTree = "<group>";
-		};
-		FF2E25F31E5705E30050399D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		FF2E25F41E5705E30050399D /* VC */ = {
@@ -175,6 +183,28 @@
 				FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		FF93752E1E65EF9500462818 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FF93752F1E65EF9500462818 /* main_top_bar.png */,
+				FF9375301E65EF9500462818 /* main_top_menu_off.png */,
+				FF9375311E65EF9500462818 /* main_top_menu_on.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FF9375351E65EF9F00462818 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				FF9375361E65EF9F00462818 /* DrawerNavigation.h */,
+				FF9375371E65EF9F00462818 /* DrawerNavigation.m */,
+				FF9375381E65EF9F00462818 /* DrawerView.h */,
+				FF9375391E65EF9F00462818 /* DrawerView.m */,
+				FF93753A1E65EF9F00462818 /* DrawerView.xib */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,9 +274,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */,
 				FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */,
 				FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */,
+				FF9375321E65EF9500462818 /* main_top_bar.png in Resources */,
+				FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */,
 				FF2E25E51E5705A50050399D /* Main.storyboard in Resources */,
+				FF9375331E65EF9500462818 /* main_top_menu_off.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +293,9 @@
 			files = (
 				FF2E26011E578D610050399D /* WebViewVC.m in Sources */,
 				FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */,
+				FF93753B1E65EF9F00462818 /* DrawerNavigation.m in Sources */,
 				FF2E25F71E5705FF0050399D /* MainVC.m in Sources */,
+				FF93753C1E65EF9F00462818 /* DrawerView.m in Sources */,
 				FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */,
 				FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */,
 				FF2E25DF1E5705A50050399D /* AppDelegate.m in Sources */,
