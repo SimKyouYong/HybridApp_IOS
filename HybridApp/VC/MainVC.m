@@ -58,7 +58,7 @@
     [self.view addSubview:loadingView];
     loadingView.hidden = YES;
     
-    NSString *urlString = [NSString stringWithFormat:@"http://snap40.cafe24.com/Hybrid/hybridmain.html"];
+    NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];//@"http://snap40.cafe24.com/Hybrid/hybridmain.html"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
