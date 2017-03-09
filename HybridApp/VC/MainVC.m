@@ -37,6 +37,8 @@
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     
+    NSLog(@"%@", [defaults stringForKey:TOKEN_KEY]);
+    
     // 로딩관련
     loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
     loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];

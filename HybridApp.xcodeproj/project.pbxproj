@@ -18,7 +18,6 @@
 		FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */; };
 		FF8BE3571E61C37F00ECD7D3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */; };
 		FF8BE3591E61C52000ECD7D3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3581E61C52000ECD7D3 /* MapKit.framework */; };
-		FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */; };
 		FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */; };
 		FF8BE3611E61E11000ECD7D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */; };
 		FF9375321E65EF9500462818 /* main_top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = FF93752F1E65EF9500462818 /* main_top_bar.png */; };
@@ -51,7 +50,6 @@
 		FF8BE3551E61BFE300ECD7D3 /* HybridApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HybridApp.entitlements; sourceTree = "<group>"; };
 		FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		FF8BE3581E61C52000ECD7D3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FF8BE35D1E61E0F100ECD7D3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		FF8BE35E1E61E0F100ECD7D3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		FF8BE3601E61E11000ECD7D3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -110,7 +108,6 @@
 				FF93752E1E65EF9500462818 /* Resources */,
 				FF2E25E61E5705A50050399D /* Assets.xcassets */,
 				FF2E25EB1E5705A50050399D /* Info.plist */,
-				FF8BE35A1E61DFE700ECD7D3 /* Images.xcassets */,
 				FF2E25DA1E5705A50050399D /* Supporting Files */,
 			);
 			path = HybridApp;
@@ -275,7 +272,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */,
-				FF8BE35B1E61DFE700ECD7D3 /* Images.xcassets in Resources */,
 				FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */,
 				FF9375321E65EF9500462818 /* main_top_bar.png in Resources */,
 				FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */,
