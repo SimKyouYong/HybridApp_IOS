@@ -14,6 +14,11 @@
 		FF2E25F71E5705FF0050399D /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25F61E5705FF0050399D /* MainVC.m */; };
 		FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25FB1E578A270050399D /* UIView+Toast.m */; };
 		FF2E26011E578D610050399D /* WebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E26001E578D610050399D /* WebViewVC.m */; };
+		FF7BFA501E8E9AC300168D68 /* tab_home.png in Resources */ = {isa = PBXBuildFile; fileRef = FF7BFA4B1E8E9AC300168D68 /* tab_home.png */; };
+		FF7BFA511E8E9AC300168D68 /* tab_next.png in Resources */ = {isa = PBXBuildFile; fileRef = FF7BFA4C1E8E9AC300168D68 /* tab_next.png */; };
+		FF7BFA521E8E9AC300168D68 /* tab_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = FF7BFA4D1E8E9AC300168D68 /* tab_prev.png */; };
+		FF7BFA531E8E9AC300168D68 /* tab_reload.png in Resources */ = {isa = PBXBuildFile; fileRef = FF7BFA4E1E8E9AC300168D68 /* tab_reload.png */; };
+		FF7BFA541E8E9AC300168D68 /* tab_share.png in Resources */ = {isa = PBXBuildFile; fileRef = FF7BFA4F1E8E9AC300168D68 /* tab_share.png */; };
 		FF8BE2EF1E5AF83F00ECD7D3 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */; };
 		FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */; };
 		FF8BE3571E61C37F00ECD7D3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF8BE3561E61C37F00ECD7D3 /* UserNotifications.framework */; };
@@ -43,6 +48,11 @@
 		FF2E25FB1E578A270050399D /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		FF2E25FF1E578D610050399D /* WebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewVC.h; sourceTree = "<group>"; };
 		FF2E26001E578D610050399D /* WebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewVC.m; sourceTree = "<group>"; };
+		FF7BFA4B1E8E9AC300168D68 /* tab_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_home.png; sourceTree = "<group>"; };
+		FF7BFA4C1E8E9AC300168D68 /* tab_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_next.png; sourceTree = "<group>"; };
+		FF7BFA4D1E8E9AC300168D68 /* tab_prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_prev.png; sourceTree = "<group>"; };
+		FF7BFA4E1E8E9AC300168D68 /* tab_reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_reload.png; sourceTree = "<group>"; };
+		FF7BFA4F1E8E9AC300168D68 /* tab_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_share.png; sourceTree = "<group>"; };
 		FF8BE2ED1E5AF83F00ECD7D3 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		FF8BE2F11E5AFB9F00ECD7D3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -185,6 +195,11 @@
 		FF93752E1E65EF9500462818 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FF7BFA4B1E8E9AC300168D68 /* tab_home.png */,
+				FF7BFA4C1E8E9AC300168D68 /* tab_next.png */,
+				FF7BFA4D1E8E9AC300168D68 /* tab_prev.png */,
+				FF7BFA4E1E8E9AC300168D68 /* tab_reload.png */,
+				FF7BFA4F1E8E9AC300168D68 /* tab_share.png */,
 				FF93752F1E65EF9500462818 /* main_top_bar.png */,
 				FF9375301E65EF9500462818 /* main_top_menu_off.png */,
 				FF9375311E65EF9500462818 /* main_top_menu_on.png */,
@@ -272,8 +287,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */,
+				FF7BFA521E8E9AC300168D68 /* tab_prev.png in Resources */,
+				FF7BFA531E8E9AC300168D68 /* tab_reload.png in Resources */,
 				FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */,
 				FF9375321E65EF9500462818 /* main_top_bar.png in Resources */,
+				FF7BFA501E8E9AC300168D68 /* tab_home.png in Resources */,
+				FF7BFA541E8E9AC300168D68 /* tab_share.png in Resources */,
+				FF7BFA511E8E9AC300168D68 /* tab_next.png in Resources */,
 				FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */,
 				FF2E25E51E5705A50050399D /* Main.storyboard in Resources */,
 				FF9375331E65EF9500462818 /* main_top_menu_off.png in Resources */,

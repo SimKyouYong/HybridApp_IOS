@@ -10,7 +10,7 @@
 #import "PopupView.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface MainVC : UIViewController<CLLocationManagerDelegate>{
+@interface MainVC : UIViewController<CLLocationManagerDelegate, UIWebViewDelegate>{
     NSUserDefaults *defaults;
     
     NSString *fURL;
@@ -20,17 +20,14 @@
     UILabel *loadingLabel;
     
     PopupView *popupView;
+    
+    UIWebView *mainWebView;
+    
+    UIView *buttonView;
+    UIView *webviewBottomView;
 }
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-
-@property (weak, nonatomic) IBOutlet UIWebView *mainWebView;
-
-- (IBAction)backButton:(id)sender;
-- (IBAction)fowardButton:(id)sender;
-- (IBAction)homeButton:(id)sender;
-- (IBAction)refreshButton:(id)sender;
-- (IBAction)dropButton:(id)sender;
 
 @end
 

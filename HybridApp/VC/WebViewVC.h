@@ -8,20 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewVC : UIViewController
-
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@interface WebViewVC : UIViewController<UIWebViewDelegate>{
+    UIWebView *webView;
+    
+    UIView *buttonView;
+    UIView *webviewBottomView;
+}
 
 @property (nonatomic) NSString *urlString;
 @property (nonatomic) NSString *titleString;
 @property (nonatomic) NSString *buttonString;
 @property (nonatomic) NSString *buttonUrlString;
+@property (nonatomic) NSString *viewNum;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleText;
 
 - (IBAction)menuButton:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *topButton;
-- (IBAction)topButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *menuButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 - (IBAction)backButton:(id)sender;
 
 @end

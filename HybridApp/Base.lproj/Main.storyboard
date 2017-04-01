@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Aa-SA-i27">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Aa-SA-i27">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,70 +39,12 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ZM-Gl-ZqI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="5DW-rE-Rkt"/>
-                                </connections>
-                            </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcI-iI-gQa">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="9J8-sV-oJb"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="◀︎" id="eCq-we-pck">
-                                        <connections>
-                                            <action selector="backButton:" destination="BYZ-38-t0r" id="qfr-Lf-lIg"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ht8-Qb-Oyc"/>
-                                    <barButtonItem title="▶︎" id="Wwr-m7-3MR">
-                                        <connections>
-                                            <action selector="fowardButton:" destination="BYZ-38-t0r" id="9Us-M8-QEN"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fHI-sH-lkG"/>
-                                    <barButtonItem title="HOME" id="oPp-yG-hNl">
-                                        <connections>
-                                            <action selector="homeButton:" destination="BYZ-38-t0r" id="NxP-OR-Byy"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ehn-zS-nca"/>
-                                    <barButtonItem systemItem="refresh" id="JKr-J4-r48">
-                                        <connections>
-                                            <action selector="refreshButton:" destination="BYZ-38-t0r" id="AlF-BX-hAc"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="k5p-Af-tRP"/>
-                                    <barButtonItem systemItem="organize" id="c52-vJ-tjm">
-                                        <connections>
-                                            <action selector="dropButton:" destination="BYZ-38-t0r" id="pmM-WM-yLF"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="5ZM-Gl-ZqI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Et0-EJ-K6f"/>
-                            <constraint firstAttribute="trailing" secondItem="HcI-iI-gQa" secondAttribute="trailing" id="EtT-HI-1iy"/>
-                            <constraint firstAttribute="trailing" secondItem="5ZM-Gl-ZqI" secondAttribute="trailing" id="b2b-2v-rrz"/>
-                            <constraint firstItem="5ZM-Gl-ZqI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="g9b-Yg-Xyt"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HcI-iI-gQa" secondAttribute="bottom" id="kFM-7B-kGF"/>
-                            <constraint firstItem="HcI-iI-gQa" firstAttribute="top" secondItem="5ZM-Gl-ZqI" secondAttribute="bottom" id="msV-hJ-xf8"/>
-                            <constraint firstItem="HcI-iI-gQa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yuK-It-nfI"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Yvy-F0-b95"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
-                    <connections>
-                        <outlet property="mainWebView" destination="5ZM-Gl-ZqI" id="VwW-CP-EoD"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -143,18 +85,15 @@
                                             <action selector="menuButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="TeE-Iz-Pa4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5S7-vM-2Ei">
-                                        <rect key="frame" x="540" y="10" width="50" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUi-Df-UEj">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="UjH-DS-G9i"/>
-                                            <constraint firstAttribute="height" constant="30" id="zmT-jB-T4W"/>
+                                            <constraint firstAttribute="height" constant="50" id="3Do-KM-76C"/>
+                                            <constraint firstAttribute="width" constant="70" id="Tic-Wd-HIm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="Login">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                        <state key="normal" title="Back"/>
                                         <connections>
-                                            <action selector="topButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="Osr-af-7JI"/>
+                                            <action selector="backButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="11t-97-qMN"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -162,57 +101,33 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3fV-96-Mfl"/>
                                     <constraint firstItem="U9F-3F-QiF" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" constant="10" id="5yx-Nq-B2p"/>
-                                    <constraint firstAttribute="trailing" secondItem="5S7-vM-2Ei" secondAttribute="trailing" constant="10" id="6dq-Jb-5pC"/>
                                     <constraint firstItem="AXd-Bq-So3" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="A5D-qr-zKr"/>
                                     <constraint firstItem="U9F-3F-QiF" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" constant="10" id="BTX-5G-DyN"/>
-                                    <constraint firstItem="5S7-vM-2Ei" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" constant="10" id="FRG-Gv-G5R"/>
                                     <constraint firstAttribute="trailing" secondItem="1pi-KL-sb3" secondAttribute="trailing" id="Hq0-kV-ce8"/>
                                     <constraint firstItem="1pi-KL-sb3" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="MSx-1R-Rz9"/>
                                     <constraint firstItem="AXd-Bq-So3" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="Q9c-vL-gbJ"/>
                                     <constraint firstAttribute="bottom" secondItem="1pi-KL-sb3" secondAttribute="bottom" id="S8q-FM-5lm"/>
                                     <constraint firstAttribute="bottom" secondItem="AXd-Bq-So3" secondAttribute="bottom" id="YBm-dI-nCg"/>
+                                    <constraint firstItem="XUi-Df-UEj" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="ilS-Ik-BsX"/>
+                                    <constraint firstItem="XUi-Df-UEj" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="l9R-3j-bbt"/>
                                     <constraint firstItem="1pi-KL-sb3" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="uvU-Ui-01P"/>
                                     <constraint firstAttribute="trailing" secondItem="AXd-Bq-So3" secondAttribute="trailing" id="vVy-Pp-j7e"/>
                                 </constraints>
                             </view>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-2D-b2w">
-                                <rect key="frame" x="0.0" y="50" width="600" height="550"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ere-Q0-MyA" id="jUW-DE-M2O"/>
-                                </connections>
-                            </webView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUi-Df-UEj">
-                                <rect key="frame" x="0.0" y="550" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="3Do-KM-76C"/>
-                                    <constraint firstAttribute="width" constant="50" id="Tic-Wd-HIm"/>
-                                </constraints>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="11t-97-qMN"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="XUi-Df-UEj" firstAttribute="leading" secondItem="gxi-9W-2DA" secondAttribute="leading" id="892-nX-4bG"/>
-                            <constraint firstAttribute="trailing" secondItem="o3u-2D-b2w" secondAttribute="trailing" id="Btj-OW-yIu"/>
                             <constraint firstItem="dfo-dN-Krp" firstAttribute="top" secondItem="gxi-9W-2DA" secondAttribute="top" id="C18-0y-Prs"/>
-                            <constraint firstItem="FGB-YW-EAK" firstAttribute="top" secondItem="XUi-Df-UEj" secondAttribute="bottom" id="F2w-xH-k78"/>
                             <constraint firstItem="dfo-dN-Krp" firstAttribute="leading" secondItem="gxi-9W-2DA" secondAttribute="leading" id="Fjw-LO-S4y"/>
-                            <constraint firstItem="o3u-2D-b2w" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="bottom" id="QH9-Ld-ooc"/>
-                            <constraint firstItem="o3u-2D-b2w" firstAttribute="leading" secondItem="gxi-9W-2DA" secondAttribute="leading" id="SPN-Ix-5Bk"/>
-                            <constraint firstItem="FGB-YW-EAK" firstAttribute="top" secondItem="o3u-2D-b2w" secondAttribute="bottom" id="ZoP-kG-0zZ"/>
                             <constraint firstAttribute="trailing" secondItem="dfo-dN-Krp" secondAttribute="trailing" id="o0Y-vN-Z6r"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
+                        <outlet property="backButton" destination="XUi-Df-UEj" id="5aO-Wf-CLR"/>
+                        <outlet property="menuButton" destination="U9F-3F-QiF" id="QJl-a3-R96"/>
                         <outlet property="titleText" destination="AXd-Bq-So3" id="Bln-96-Rjw"/>
-                        <outlet property="topButton" destination="U9F-3F-QiF" id="rJX-aV-mJx"/>
-                        <outlet property="webView" destination="o3u-2D-b2w" id="NLy-e3-VMb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2A-Tq-gdI" userLabel="First Responder" sceneMemberID="firstResponder"/>

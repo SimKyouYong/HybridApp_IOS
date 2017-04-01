@@ -22,8 +22,6 @@
 
 @implementation MainVC
 
-@synthesize mainWebView;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -36,8 +34,6 @@
     
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
-    
-    NSLog(@"%@", [defaults stringForKey:TOKEN_KEY]);
     
     // 로딩관련
     loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
@@ -60,10 +56,100 @@
     [self.view addSubview:loadingView];
     loadingView.hidden = YES;
     
-    NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];//@"http://snap40.cafe24.com/Hybrid/hybridmain.html"];
+    // 웹뷰
+    mainWebView = [[UIWebView alloc] init];
+    mainWebView.delegate = self;
+    mainWebView.scalesPageToFit = YES;
+    [self.view addSubview:mainWebView];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
+    
+    // 버튼 뷰
+    buttonView = [[UIView alloc] init];
+    buttonView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:buttonView];
+    
+    // 웹뷰 하단 버튼 뷰
+    webviewBottomView = [[UIView alloc] init];
+    webviewBottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:webviewBottomView];
+    
+    [self viewFrameInit];
+    [self viewBottomButtonBgInit];
+    [self viewBottomWebviewBgInit];
+    
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button1 setTitle:@"버튼1" forState:UIControlStateNormal];
+    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button1.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
+    [button1 addTarget:self action:@selector(button1Action:) forControlEvents:UIControlEventTouchUpInside];
+    [button1.layer setBorderWidth:0.5f];
+    [buttonView addSubview:button1];
+    
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button2 setTitle:@"버튼2" forState:UIControlStateNormal];
+    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button2.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
+    [button2 addTarget:self action:@selector(button2Action:) forControlEvents:UIControlEventTouchUpInside];
+    [button2.layer setBorderWidth:0.5f];
+    [buttonView addSubview:button2];
+    
+    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button3 setTitle:@"버튼3" forState:UIControlStateNormal];
+    [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button3.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
+    [button3 addTarget:self action:@selector(button3Action:) forControlEvents:UIControlEventTouchUpInside];
+    [button3.layer setBorderWidth:0.5f];
+    [buttonView addSubview:button3];
+    
+    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button4 setTitle:@"버튼4" forState:UIControlStateNormal];
+    [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button4.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
+    [button4 addTarget:self action:@selector(button4Action:) forControlEvents:UIControlEventTouchUpInside];
+    [button4.layer setBorderWidth:0.5f];
+    [buttonView addSubview:button4];
+    
+    UIButton *button5 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button5 setTitle:@"버튼5" forState:UIControlStateNormal];
+    [button5 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button5.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
+    [button5 addTarget:self action:@selector(button5Action:) forControlEvents:UIControlEventTouchUpInside];
+    [button5.layer setBorderWidth:0.5f];
+    [buttonView addSubview:button5];
+    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
+    backButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
+    [backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
+    [webviewBottomView addSubview:backButton];
+    
+    UIButton *fowardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [fowardButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
+    fowardButton.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
+    [fowardButton addTarget:self action:@selector(fowardButton:) forControlEvents:UIControlEventTouchUpInside];
+    [webviewBottomView addSubview:fowardButton];
+    
+    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [homeButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
+    homeButton.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
+    [homeButton addTarget:self action:@selector(homeButton:) forControlEvents:UIControlEventTouchUpInside];
+    [webviewBottomView addSubview:homeButton];
+    
+    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [reloadButton setImage:[UIImage imageNamed:@"tab_reload"] forState:UIControlStateNormal];
+    reloadButton.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
+    [reloadButton addTarget:self action:@selector(reloadButton:) forControlEvents:UIControlEventTouchUpInside];
+    [webviewBottomView addSubview:reloadButton];
+    
+    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton setImage:[UIImage imageNamed:@"tab_share"] forState:UIControlStateNormal];
+    shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
+    [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
+    [webviewBottomView addSubview:shareButton];
     
     popupView = [[PopupView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:popupView];
@@ -80,6 +166,86 @@
         [self.locationManager startUpdatingLocation];
         [self.locationManager stopUpdatingLocation];
     }
+}
+
+// 하단 뷰 숨기기, 배경색
+- (void)viewFrameInit{
+    if([[defaults stringForKey:BOTTOM_BUTTON_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_BUTTON_HIDDEN].length == 0){
+        buttonView.hidden = NO;
+        if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
+            mainWebView.frame = CGRectMake(0, 0, WIDTH_FRAME, HEIGHT_FRAME - 100);
+            buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 100, WIDTH_FRAME, 50);
+            webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+            webviewBottomView.hidden = NO;
+        }else{
+            mainWebView.frame = CGRectMake(0, 0, WIDTH_FRAME, HEIGHT_FRAME - 50);
+            buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+            webviewBottomView.hidden = YES;
+        }
+    }else{
+        buttonView.hidden = YES;
+       if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
+           mainWebView.frame = CGRectMake(0, 0, WIDTH_FRAME, HEIGHT_FRAME - 50);
+           webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+           webviewBottomView.hidden = NO;
+       }else{
+           mainWebView.frame = CGRectMake(0, 0, WIDTH_FRAME, HEIGHT_FRAME);
+           webviewBottomView.hidden = YES;
+       }
+    }
+}
+
+- (void)viewBottomButtonBgInit{
+    NSString *bgColor = [defaults stringForKey:BOTTOM_BUTTON_COLOR];
+    if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
+        buttonView.backgroundColor = [UIColor whiteColor];
+    }else{
+        bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        buttonView.backgroundColor = [self colorWithHexString:bgColor];
+    }
+}
+
+- (void)viewBottomWebviewBgInit{
+    NSString *bgColor = [defaults stringForKey:BOTTOM_WEBVIEW_COLOR];
+    if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
+        webviewBottomView.backgroundColor = [UIColor whiteColor];
+    }else{
+        bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        webviewBottomView.backgroundColor = [self colorWithHexString:bgColor];
+    }
+}
+
+#pragma mark -
+#pragma mark Button View
+
+- (void)button1Action:(UIButton*)sender{
+    NSURL *url = [NSURL URLWithString:@"http://www.naver.com"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
+}
+
+- (void)button2Action:(UIButton*)sender{
+    NSURL *url = [NSURL URLWithString:@"http://www.daum.net"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
+}
+
+- (void)button3Action:(UIButton*)sender{
+    NSURL *url = [NSURL URLWithString:@"http://www.google.com"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
+}
+
+- (void)button4Action:(UIButton*)sender{
+    NSURL *url = [NSURL URLWithString:@"http://www.yahoo.com"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
+}
+
+- (void)button5Action:(UIButton*)sender{
+    NSURL *url = [NSURL URLWithString:@"http://www.11st.co.kr"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
 }
 
 #pragma mark -
@@ -127,8 +293,32 @@
     
     if ([[[request URL] absoluteString] hasPrefix:@"js2ios:"]){
         
+        // 로딩바 보이기 숨기기
+        if([fURL hasPrefix:@"js2ios://ProgressBar?"]){
+            NSArray *loadingArr1 = [fURL componentsSeparatedByString:@"name="];
+            NSString *loadingStr1 = [loadingArr1 objectAtIndex:1];
+            NSArray *loadingArr2 = [loadingStr1 componentsSeparatedByString:@"&"];
+            NSString *loadingMsg = [loadingArr2 objectAtIndex:0];
+            if([loadingMsg isEqualToString:@"true"]){
+                [defaults setObject:@"true" forKey:LOADINGBAR_HIDDEN];
+            }else{
+                [defaults setObject:@"false" forKey:LOADINGBAR_HIDDEN];
+            }
+            
+        // 로딩바 3초 딜레이 완료후
+        }else if([fURL hasPrefix:@"js2ios://ProgressBar3?"]){
+            NSArray *loadingArr1 = [fURL componentsSeparatedByString:@"name="];
+            NSString *loadingStr1 = [loadingArr1 objectAtIndex:1];
+            NSArray *loadingArr2 = [loadingStr1 componentsSeparatedByString:@"&"];
+            NSString *loadingMsg = [loadingArr2 objectAtIndex:0];
+            if([loadingMsg isEqualToString:@"true"]){
+                 [defaults setObject:@"true" forKey:LOADINGBAR_TIME];
+            }else{
+                 [defaults setObject:@"false" forKey:LOADINGBAR_TIME];
+            }
+            
         // 토스트 메세지
-        if([fURL hasPrefix:@"js2ios://showToast?"]){
+        }else if([fURL hasPrefix:@"js2ios://showToast?"]){
             NSArray *toastArr1 = [fURL componentsSeparatedByString:@"name="];
             NSString *toastStr1 = [toastArr1 objectAtIndex:1];
             NSArray *toastArr2 = [toastStr1 componentsSeparatedByString:@"&"];
@@ -137,7 +327,7 @@
             [self.navigationController.view makeToast:toastMsg];
         
         // 앱 화면이동(4방향)
-        }else if([fURL hasPrefix:@"js2ios://SubActivity?"]){
+        }else if([fURL hasPrefix:@"js2ios://SubNotActivity?"]){
             NSArray *appArr1 = [fURL componentsSeparatedByString:@"action="];
             NSString *appStr1 = [appArr1 objectAtIndex:1];
             NSArray *appArr2 = [appStr1 componentsSeparatedByString:@"&"];
@@ -179,6 +369,7 @@
             _webViewVC.titleString = titleValue;
             _webViewVC.buttonString = buttonValue;
             _webViewVC.buttonUrlString = buttonUrlValue;
+            _webViewVC.viewNum = @"1";
             
             CATransition *transition = [CATransition animation];
             transition.duration = 0.4;
@@ -188,7 +379,38 @@
             [self.view.window.layer addAnimation:transition forKey:nil];
             [self.rootNav pushViewController:_webViewVC animated:NO];
             //[self presentViewController:_webViewVC animated:YES completion:nil];
-        
+            
+        // 슬라이드 메뉴화면
+        }else if([fURL hasPrefix:@"js2ios://SubActivity?"]){
+            NSArray *urlArr1 = [fURL componentsSeparatedByString:@"url="];
+            NSString *urlStr1 = [urlArr1 objectAtIndex:1];
+            NSArray *urlArr2 = [urlStr1 componentsSeparatedByString:@"&"];
+            NSString *urlValue = [urlArr2 objectAtIndex:0];
+            
+            NSArray *titleArr1 = [fURL componentsSeparatedByString:@"title="];
+            NSString *titleStr1 = [titleArr1 objectAtIndex:1];
+            NSArray *titleArr2 = [titleStr1 componentsSeparatedByString:@"&"];
+            NSString *titleValue = [titleArr2 objectAtIndex:0];
+            
+            NSArray *buttonArr1 = [fURL componentsSeparatedByString:@"button="];
+            NSString *buttonStr1 = [buttonArr1 objectAtIndex:1];
+            NSArray *buttonArr2 = [buttonStr1 componentsSeparatedByString:@"&"];
+            NSString *buttonValue = [buttonArr2 objectAtIndex:0];
+            
+            NSArray *buttonUrlArr1 = [fURL componentsSeparatedByString:@"button_url="];
+            NSString *buttonUrlStr1 = [buttonUrlArr1 objectAtIndex:1];
+            NSArray *buttonUrlArr2 = [buttonUrlStr1 componentsSeparatedByString:@"&"];
+            NSString *buttonUrlValue = [buttonUrlArr2 objectAtIndex:0];
+            
+            WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
+            _webViewVC.urlString = urlValue;
+            _webViewVC.titleString = titleValue;
+            _webViewVC.buttonString = buttonValue;
+            _webViewVC.buttonUrlString = buttonUrlValue;
+            _webViewVC.viewNum = @"2";
+            
+            [self.rootNav pushViewController:_webViewVC animated:NO];
+          
         // 위도 경도
         }else if([fURL hasPrefix:@"js2ios://Location?"]){
             CLLocationManager *locationManager = [[CLLocationManager alloc] init];
@@ -205,18 +427,62 @@
         
         //ISP 호출하는 경우
         }else if([fURL hasPrefix:@"ispmobile://"]) {
-                NSURL *appURL = [NSURL URLWithString:fURL];
-                if([[UIApplication sharedApplication] canOpenURL:appURL]) {
-                    [[UIApplication sharedApplication] openURL:appURL];
-                } else {
-                    //[self showAlertViewWithEvent:@"모바일 ISP가 설치되어 있지 않아\nApp Store로 이동합니다." tagNum:99];
-                    return NO;
-                }
+            NSURL *appURL = [NSURL URLWithString:fURL];
+            if([[UIApplication sharedApplication] canOpenURL:appURL]) {
+                [[UIApplication sharedApplication] openURL:appURL];
+            } else {
+                //[self showAlertViewWithEvent:@"모바일 ISP가 설치되어 있지 않아\nApp Store로 이동합니다." tagNum:99];
+                return NO;
             }
+        }
+    
+        return NO;
+    }else if ([[[request URL] absoluteString] hasPrefix:@"hybridapi:"]){
+     
+        // 하단 버튼 메뉴 bg
+        if([fURL hasPrefix:@"hybridapi://new_setBottomMenuStyle?"]){
+            NSArray *bgArr = [fURL componentsSeparatedByString:@"?"];
+            NSString *bgStr = [bgArr objectAtIndex:1];
+            [defaults setObject:bgStr forKey:BOTTOM_BUTTON_COLOR];
+            
+            [self viewBottomButtonBgInit];
+        
+        // 하단 버튼 메뉴 숨기기
+        }else if([fURL hasPrefix:@"hybridapi://new_hideBottomMenu"]){
+            [defaults setObject:@"YES" forKey:BOTTOM_BUTTON_HIDDEN];
+            
+            [self viewFrameInit];
+         
+        // 하단 버튼 메뉴 보이기
+        }else if([fURL hasPrefix:@"hybridapi://new_showBottomMenu"]){
+            [defaults setObject:@"NO" forKey:BOTTOM_BUTTON_HIDDEN];
+            
+            [self viewFrameInit];
+        
+        // 하단 웹뷰 메뉴 bg
+        }else if([fURL hasPrefix:@"hybridapi://setBottomMenuStyle?"]){
+            NSArray *bgArr = [fURL componentsSeparatedByString:@"?"];
+            NSString *bgStr = [bgArr objectAtIndex:1];
+            [defaults setObject:bgStr forKey:BOTTOM_WEBVIEW_COLOR];
+                
+            [self viewBottomWebviewBgInit];
+        
+        // 하단 웹뷰 메뉴 숨기기
+        }else if([fURL hasPrefix:@"hybridapi://hideBottomMenu"]){
+            [defaults setObject:@"YES" forKey:BOTTOM_WEBVIEW_HIDDEN];
+            
+            [self viewFrameInit];
+            
+        // 하단 웹뷰 메뉴 보이기
+        }else if([fURL hasPrefix:@"hybridapi://showBottomMenu"]){
+            [defaults setObject:@"NO" forKey:BOTTOM_WEBVIEW_HIDDEN];
+            
+            [self viewFrameInit];
+        }
         
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -246,28 +512,28 @@
 }
 
 #pragma mark -
-#pragma mark Button Action
+#pragma mark WebView Button Action
 
-- (IBAction)backButton:(id)sender {
+- (void)backButton:(UIButton*)sender {
     [mainWebView goBack];
 }
 
-- (IBAction)fowardButton:(id)sender {
+- (void)fowardButton:(UIButton*)sender {
     [mainWebView goForward];
 }
 
-- (IBAction)homeButton:(id)sender {
-    NSString *urlString = [NSString stringWithFormat:@"http://snap40.cafe24.com/Hybrid/hybridmain.html"];
+- (void)homeButton:(UIButton*)sender {
+    NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
 
-- (IBAction)refreshButton:(id)sender {
+- (void)reloadButton:(UIButton*)sender {
     [mainWebView reload];
 }
 
-- (IBAction)dropButton:(id)sender {
+- (void)shareButton:(UIButton*)sender {
     NSArray *actionItems = @[mainWebView.request.URL];
     UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:actionItems applicationActivities:nil];
     
@@ -278,12 +544,17 @@
 #pragma mark Loading Method
 
 - (void)loadingStart{
-    if([POPUP_VIEW_ON_OFF isEqualToString:@"ON"]){
-        popupView.hidden = NO;
-    }
-    if([PROGRESS_ON_OFF isEqualToString:@"ON"]){
+    popupView.hidden = NO;
+    
+    if([[defaults stringForKey:LOADINGBAR_HIDDEN] isEqualToString:@"true"] || [defaults stringForKey:LOADINGBAR_HIDDEN].length == 0){
         loadingView.hidden = NO;
         [activityView startAnimating];
+    }else{
+       
+    }
+    
+    if([[defaults stringForKey:LOADINGBAR_HIDDEN] isEqualToString:@"true"]){
+        [self performSelector:@selector(loadingEnd) withObject:nil afterDelay:3.0];
     }
 }
 
@@ -303,6 +574,45 @@
 
 - (void)startStandardUpdates {
     NSLog(@"startStandardUpdates");
+}
+
+#pragma mark -
+#pragma mark Hex Color
+
+- (UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 @end
