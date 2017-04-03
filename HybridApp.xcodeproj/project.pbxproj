@@ -10,6 +10,7 @@
 		2989907A1E91DFED00B3F0F5 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 298990791E91DFED00B3F0F5 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2989907C1E91E06300B3F0F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2989907B1E91E06300B3F0F5 /* Security.framework */; };
 		2989907F1E91E91600B3F0F5 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2989907E1E91E91600B3F0F5 /* KakaoOpenSDK.framework */; };
+		298990811E92265700B3F0F5 /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 298990801E92265700B3F0F5 /* KakaoLink.framework */; };
 		FF2E25DC1E5705A50050399D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25DB1E5705A50050399D /* main.m */; };
 		FF2E25DF1E5705A50050399D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2E25DE1E5705A50050399D /* AppDelegate.m */; };
 		FF2E25E51E5705A50050399D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2E25E31E5705A50050399D /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		298990791E91DFED00B3F0F5 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		2989907B1E91E06300B3F0F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2989907E1E91E91600B3F0F5 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		298990801E92265700B3F0F5 /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoLink.framework; sourceTree = "<group>"; };
 		FF2E25D71E5705A50050399D /* HybridApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HybridApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF2E25DB1E5705A50050399D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF2E25DD1E5705A50050399D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				FF8BE3571E61C37F00ECD7D3 /* UserNotifications.framework in Frameworks */,
 				FF8BE3591E61C52000ECD7D3 /* MapKit.framework in Frameworks */,
 				FF8BE2F21E5AFB9F00ECD7D3 /* CoreLocation.framework in Frameworks */,
+				298990811E92265700B3F0F5 /* KakaoLink.framework in Frameworks */,
 				2989907F1E91E91600B3F0F5 /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +112,7 @@
 		2989907D1E91E91600B3F0F5 /* kakao */ = {
 			isa = PBXGroup;
 			children = (
+				298990801E92265700B3F0F5 /* KakaoLink.framework */,
 				2989907E1E91E91600B3F0F5 /* KakaoOpenSDK.framework */,
 			);
 			path = kakao;
@@ -466,6 +470,7 @@
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";
@@ -488,6 +493,7 @@
 				INFOPLIST_FILE = HybridApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";

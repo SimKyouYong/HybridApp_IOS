@@ -28,6 +28,24 @@
 				<string>iamporttest</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao35c56bd4122e3ea125fd8e1d96f126be</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.clskmedia.hybridappdev</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hybridappdev</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
@@ -57,7 +75,7 @@
 		<string>citispay</string>
 		<string>citicardappkr</string>
 		<string>kakaolink</string>
-		<string>kakaotalk-4.5.0</string>
+		<string>kakaotalk-5.9.7</string>
 		<string>kakao35c56bd4122e3ea125fd8e1d96f126be</string>
 		<string>kakaokompassauth</string>
 	</array>

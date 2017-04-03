@@ -129,4 +129,19 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    NSLog(@"%@", url);
+    // 어플 자신이 호출된 경우에 얼럿창 띄우기
+    NSString *strURL = [url absoluteString];
+    
+    UIAlertView *alertView= [[UIAlertView alloc] initWithTitle:@"call message"
+                                                       message:strURL
+                                                      delegate:nil
+                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alertView  show];
+    
+    return YES;
+}
+
 @end

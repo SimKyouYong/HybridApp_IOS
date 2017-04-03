@@ -15,6 +15,7 @@
 #import "DrawerNavigation.h"
 #import "KeychainItemWrapper.h"
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
+#import <KakaoLink/KakaoLink.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -459,7 +460,35 @@
             NSLog(@"%@", urlValue);
             NSLog(@"%@", nameValue);
             NSLog(@"%@", returnValue);
-        
+            
+            KLKTemplate *template = [KLKFeedTemplate feedTemplateWithBuilderBlock:^(KLKFeedTemplateBuilder * _Nonnull feedTemplateBuilder) {
+                // 컨텐츠
+                feedTemplateBuilder.content = [KLKContentObject contentObjectWithBuilderBlock:^(KLKContentBuilder * _Nonnull contentBuilder) {
+                    contentBuilder.title = @"WEB";
+                    contentBuilder.desc = @"";
+                    contentBuilder.imageURL = [NSURL URLWithString:@"http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg"];
+                    contentBuilder.link = [KLKLinkObject linkObjectWithBuilderBlock:^(KLKLinkBuilder * _Nonnull linkBuilder) {
+                        linkBuilder.mobileWebURL = [NSURL URLWithString:@"https://dev.kakao.com"];
+                    }];
+                }];
+                
+                // 버튼
+                [feedTemplateBuilder addButton:[KLKButtonObject buttonObjectWithBuilderBlock:^(KLKButtonBuilder * _Nonnull buttonBuilder) {
+                    buttonBuilder.title = @"웹으로 이동";
+                    buttonBuilder.link = [KLKLinkObject linkObjectWithBuilderBlock:^(KLKLinkBuilder * _Nonnull linkBuilder) {
+                        linkBuilder.mobileWebURL = [NSURL URLWithString:@"http://www.naver.com"];
+                    }];
+                }]];
+            }];
+            
+            [[KLKTalkLinkCenter sharedCenter] sendDefaultWithTemplate:template success:^(NSDictionary<NSString *,NSString *> * _Nullable warningMsg, NSDictionary<NSString *,NSString *> * _Nullable argumentMsg) {
+                // 성공
+            } failure:^(NSError * _Nonnull error) {
+                // 에러
+            } handledFailure:^(NSError * _Nonnull error) {
+                // SDK에 의해 처리된 에러
+            }];
+
         // 카카오톡 앱링크
         }else if([fURL hasPrefix:@"js2ios://kakaoshare?"]) {
             NSArray *talkArr1 = [fURL componentsSeparatedByString:@"url="];
@@ -481,11 +510,40 @@
             NSLog(@"%@", nameValue);
             NSLog(@"%@", returnValue);
             
+            KLKTemplate *template = [KLKFeedTemplate feedTemplateWithBuilderBlock:^(KLKFeedTemplateBuilder * _Nonnull feedTemplateBuilder) {
+                feedTemplateBuilder.content = [KLKContentObject contentObjectWithBuilderBlock:^(KLKContentBuilder * _Nonnull contentBuilder) {
+                    contentBuilder.title = @"APP";
+                    contentBuilder.desc = @"";
+                    contentBuilder.imageURL = [NSURL URLWithString:@""];
+                    contentBuilder.link = [KLKLinkObject linkObjectWithBuilderBlock:^(KLKLinkBuilder * _Nonnull linkBuilder) {
+                        linkBuilder.mobileWebURL = [NSURL URLWithString:@""];
+                    }];
+                }];
+                
+                 [feedTemplateBuilder addButton:[KLKButtonObject buttonObjectWithBuilderBlock:^(KLKButtonBuilder * _Nonnull buttonBuilder) {
+                     buttonBuilder.title = @"앱으로 이동";
+                     buttonBuilder.link = [KLKLinkObject linkObjectWithBuilderBlock:^(KLKLinkBuilder * _Nonnull linkBuilder) {
+                         linkBuilder.iosExecutionParams = [NSString stringWithFormat:@"param:%@", returnValue];
+                         linkBuilder.androidExecutionParams = [NSString stringWithFormat:@"param:%@", returnValue];
+                     }];
+                 }]];
+            }];
+            
+            [[KLKTalkLinkCenter sharedCenter] sendDefaultWithTemplate:template success:^(NSDictionary<NSString *,NSString *> * _Nullable warningMsg, NSDictionary<NSString *,NSString *> * _Nullable argumentMsg) {
+                // 성공
+            } failure:^(NSError * _Nonnull error) {
+                // 에러
+            } handledFailure:^(NSError * _Nonnull error) {
+                // SDK에 의해 처리된 에러
+            }];
+            
+            /*
             if ([KOAppCall canOpenKakaoTalkAppLink]) {
                 [KOAppCall openKakaoTalkAppLink:[self dummyLinkObjects]];
             } else {
                 NSLog(@"Cannot open kakaotalk.");
             }
+             */
         }
     
         return NO;
@@ -693,7 +751,7 @@
 #pragma mark Kakao Link
 
 - (NSArray *)dummyLinkObjects {
-    KakaoTalkLinkObject *label = [KakaoTalkLinkObject createLabel:@"TEST"];
+    KakaoTalkLinkObject *label = [KakaoTalkLinkObject createLabel:@"HYBRID"];
     
     KakaoTalkLinkAction *androidAppAction = [KakaoTalkLinkAction createAppAction:KakaoTalkLinkActionOSPlatformAndroid devicetype:KakaoTalkLinkActionDeviceTypePhone marketparam:@{@"referrer":@"utm_source%3Dios%26utm_medium%3Dkakaotalk%26utm_term%3Dmenu%26utm_content%3Dmenu%26utm_campaign%3Dmenu", @"another_param_name":@"another_param_value"} execparam:@{@"param_name1":@"param_value1",@"param_name1":@"param_value2"}];
     KakaoTalkLinkAction *iphoneAppAction = [KakaoTalkLinkAction createAppAction:KakaoTalkLinkActionOSPlatformIOS devicetype:KakaoTalkLinkActionDeviceTypePhone execparam:nil];
