@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface WebViewVC : UIViewController<UIWebViewDelegate>{
+    NSUserDefaults *defaults;
+    
     UIWebView *webView;
     
     UIView *buttonView;

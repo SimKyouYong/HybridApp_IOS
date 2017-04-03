@@ -13,6 +13,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
 #import "DrawerNavigation.h"
+#import "KeychainItemWrapper.h"
+#import <KakaoOpenSDK/KakaoOpenSDK.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -24,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"%@", [self getUUID]);
     
     self.rootNav = (DrawerNavigation *)self.navigationController;
     
@@ -425,7 +429,7 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:alertMsg delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
             [alertView show];
         
-        //ISP 호출하는 경우
+        // ISP 호출하는 경우
         }else if([fURL hasPrefix:@"ispmobile://"]) {
             NSURL *appURL = [NSURL URLWithString:fURL];
             if([[UIApplication sharedApplication] canOpenURL:appURL]) {
@@ -433,6 +437,54 @@
             } else {
                 //[self showAlertViewWithEvent:@"모바일 ISP가 설치되어 있지 않아\nApp Store로 이동합니다." tagNum:99];
                 return NO;
+            }
+        
+        // 카카오톡 웹링크
+        }else if([fURL hasPrefix:@"js2ios://kakaoshareweb?"]) {
+            NSArray *talkArr1 = [fURL componentsSeparatedByString:@"url="];
+            NSString *talkStr1 = [talkArr1 objectAtIndex:1];
+            NSArray *talkArr2 = [talkStr1 componentsSeparatedByString:@"&"];
+            urlValue = [talkArr2 objectAtIndex:0];
+            
+            NSArray *talkArr3 = [fURL componentsSeparatedByString:@"name="];
+            NSString *talkStr3 = [talkArr3 objectAtIndex:1];
+            NSArray *talkArr4 = [talkStr3 componentsSeparatedByString:@"&"];
+            NSString *nameValue = [talkArr4 objectAtIndex:0];
+            
+            NSArray *talkArr5 = [fURL componentsSeparatedByString:@"return="];
+            NSString *talkStr5 = [talkArr5 objectAtIndex:1];
+            NSArray *talkArr6 = [talkStr5 componentsSeparatedByString:@"&"];
+            NSString *returnValue = [talkArr6 objectAtIndex:0];
+            
+            NSLog(@"%@", urlValue);
+            NSLog(@"%@", nameValue);
+            NSLog(@"%@", returnValue);
+        
+        // 카카오톡 앱링크
+        }else if([fURL hasPrefix:@"js2ios://kakaoshare?"]) {
+            NSArray *talkArr1 = [fURL componentsSeparatedByString:@"url="];
+            NSString *talkStr1 = [talkArr1 objectAtIndex:1];
+            NSArray *talkArr2 = [talkStr1 componentsSeparatedByString:@"&"];
+            urlValue = [talkArr2 objectAtIndex:0];
+            
+            NSArray *talkArr3 = [fURL componentsSeparatedByString:@"name="];
+            NSString *talkStr3 = [talkArr3 objectAtIndex:1];
+            NSArray *talkArr4 = [talkStr3 componentsSeparatedByString:@"&"];
+            NSString *nameValue = [talkArr4 objectAtIndex:0];
+            
+            NSArray *talkArr5 = [fURL componentsSeparatedByString:@"return="];
+            NSString *talkStr5 = [talkArr5 objectAtIndex:1];
+            NSArray *talkArr6 = [talkStr5 componentsSeparatedByString:@"&"];
+            NSString *returnValue = [talkArr6 objectAtIndex:0];
+            
+            NSLog(@"%@", urlValue);
+            NSLog(@"%@", nameValue);
+            NSLog(@"%@", returnValue);
+            
+            if ([KOAppCall canOpenKakaoTalkAppLink]) {
+                [KOAppCall openKakaoTalkAppLink:[self dummyLinkObjects]];
+            } else {
+                NSLog(@"Cannot open kakaotalk.");
             }
         }
     
@@ -613,6 +665,43 @@
                            green:((float) g / 255.0f)
                             blue:((float) b / 255.0f)
                            alpha:1.0f];
+}
+
+#pragma mark -
+#pragma mark UUID
+
+- (NSString*) getUUID{
+    KeychainItemWrapper *wrapper = [[KeychainItemWrapper alloc] initWithIdentifier:@"UUID" accessGroup:nil];
+    
+    NSString *uuid = [wrapper objectForKey:(__bridge id)(kSecAttrAccount)];
+    
+    if( uuid == nil || uuid.length == 0){
+        CFUUIDRef uuidRef = CFUUIDCreate(NULL);
+        CFStringRef uuidStringRef = CFUUIDCreateString(NULL, uuidRef);
+        CFRelease(uuidRef);
+        
+        uuid = [NSString stringWithString:(__bridge NSString *) uuidStringRef];
+        CFRelease(uuidStringRef);
+        
+        [wrapper setObject:uuid forKey:(__bridge id)(kSecAttrAccount)];
+    }
+
+    return uuid;
+}
+
+#pragma mark -
+#pragma mark Kakao Link
+
+- (NSArray *)dummyLinkObjects {
+    KakaoTalkLinkObject *label = [KakaoTalkLinkObject createLabel:@"TEST"];
+    
+    KakaoTalkLinkAction *androidAppAction = [KakaoTalkLinkAction createAppAction:KakaoTalkLinkActionOSPlatformAndroid devicetype:KakaoTalkLinkActionDeviceTypePhone marketparam:@{@"referrer":@"utm_source%3Dios%26utm_medium%3Dkakaotalk%26utm_term%3Dmenu%26utm_content%3Dmenu%26utm_campaign%3Dmenu", @"another_param_name":@"another_param_value"} execparam:@{@"param_name1":@"param_value1",@"param_name1":@"param_value2"}];
+    KakaoTalkLinkAction *iphoneAppAction = [KakaoTalkLinkAction createAppAction:KakaoTalkLinkActionOSPlatformIOS devicetype:KakaoTalkLinkActionDeviceTypePhone execparam:nil];
+    KakaoTalkLinkAction *ipadAppAction = [KakaoTalkLinkAction createAppAction:KakaoTalkLinkActionOSPlatformIOS devicetype:KakaoTalkLinkActionDeviceTypePad execparam:nil];
+    KakaoTalkLinkAction *webAppAction = [KakaoTalkLinkAction createWebAction:urlValue];
+    KakaoTalkLinkObject *appLink = [KakaoTalkLinkObject createAppButton:@"앱으로 이동" actions:@[androidAppAction, iphoneAppAction, ipadAppAction, webAppAction]];
+    
+    return @[label, appLink];
 }
 
 @end

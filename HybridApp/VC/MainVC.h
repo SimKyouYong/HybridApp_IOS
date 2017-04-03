@@ -25,6 +25,8 @@
     
     UIView *buttonView;
     UIView *webviewBottomView;
+    
+    NSString *urlValue;
 }
 
 @property (nonatomic, strong) CLLocationManager *locationManager;

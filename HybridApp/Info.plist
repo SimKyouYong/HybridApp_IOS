@@ -31,6 +31,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>35c56bd4122e3ea125fd8e1d96f126be</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kftc-bankpay</string>
@@ -54,6 +56,10 @@
 		<string>nonghyupcardansimclick</string>
 		<string>citispay</string>
 		<string>citicardappkr</string>
+		<string>kakaolink</string>
+		<string>kakaotalk-4.5.0</string>
+		<string>kakao35c56bd4122e3ea125fd8e1d96f126be</string>
+		<string>kakaokompassauth</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

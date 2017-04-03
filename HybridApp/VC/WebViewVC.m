@@ -30,6 +30,9 @@
     
     self.rootNav = (DrawerNavigation *)self.navigationController;
     
+    defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
+    
     if([viewNum isEqualToString:@"2"]){
         menuButton.hidden = NO;
         backButton.hidden = YES;
@@ -54,7 +57,6 @@
     webView = [[UIWebView alloc] init];
     webView.delegate = self;
     webView.scalesPageToFit = YES;
-    webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 150);
     [self.view addSubview:webView];
     
     NSURL *url = [NSURL URLWithString:urlString];
@@ -64,8 +66,16 @@
     // 버튼 뷰
     buttonView = [[UIView alloc] init];
     buttonView.backgroundColor = [UIColor whiteColor];
-    buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 100, WIDTH_FRAME, 50);
     [self.view addSubview:buttonView];
+    
+    // 웹뷰 하단 버튼 뷰
+    webviewBottomView = [[UIView alloc] init];
+    webviewBottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:webviewBottomView];
+    
+    [self viewFrameInit];
+    [self viewBottomButtonBgInit];
+    [self viewBottomWebviewBgInit];
     
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
     [button1 setTitle:@"버튼1" forState:UIControlStateNormal];
@@ -107,12 +117,6 @@
     [button5.layer setBorderWidth:0.5f];
     [buttonView addSubview:button5];
     
-    // 웹뷰 하단 버튼 뷰
-    webviewBottomView = [[UIView alloc] init];
-    webviewBottomView.backgroundColor = [UIColor whiteColor];
-    webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
-    [self.view addSubview:webviewBottomView];
-    
     UIButton *pervButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [pervButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
     pervButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
@@ -142,6 +146,53 @@
     shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
     [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:shareButton];
+}
+
+// 하단 뷰 숨기기, 배경색
+- (void)viewFrameInit{
+    if([[defaults stringForKey:BOTTOM_BUTTON_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_BUTTON_HIDDEN].length == 0){
+        buttonView.hidden = NO;
+        if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
+            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 150);
+            buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 100, WIDTH_FRAME, 50);
+            webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+            webviewBottomView.hidden = NO;
+        }else{
+            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
+            buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+            webviewBottomView.hidden = YES;
+        }
+    }else{
+        buttonView.hidden = YES;
+        if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
+            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
+            webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
+            webviewBottomView.hidden = NO;
+        }else{
+            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 50);
+            webviewBottomView.hidden = YES;
+        }
+    }
+}
+
+- (void)viewBottomButtonBgInit{
+    NSString *bgColor = [defaults stringForKey:BOTTOM_BUTTON_COLOR];
+    if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
+        buttonView.backgroundColor = [UIColor whiteColor];
+    }else{
+        bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        buttonView.backgroundColor = [self colorWithHexString:bgColor];
+    }
+}
+
+- (void)viewBottomWebviewBgInit{
+    NSString *bgColor = [defaults stringForKey:BOTTOM_WEBVIEW_COLOR];
+    if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
+        webviewBottomView.backgroundColor = [UIColor whiteColor];
+    }else{
+        bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        webviewBottomView.backgroundColor = [self colorWithHexString:bgColor];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -227,6 +278,45 @@
     UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:actionItems applicationActivities:nil];
     
     [self presentViewController:avc animated:YES completion:nil];
+}
+
+#pragma mark -
+#pragma mark Hex Color
+
+- (UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
 }
 
 @end
