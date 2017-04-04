@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"reloadWebView" object:nil];
+    
     NSLog(@"%@", [self getUUID]);
     
     self.rootNav = (DrawerNavigation *)self.navigationController;
@@ -39,6 +41,8 @@
     
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
+    
+    NSLog(@"ddd : %@", [defaults stringForKey:TOKEN_KEY]);
     
     // 로딩관련
     loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
@@ -588,6 +592,12 @@
             [defaults setObject:@"NO" forKey:BOTTOM_WEBVIEW_HIDDEN];
             
             [self viewFrameInit];
+        
+        // 슬라이드 메뉴 bf
+        }else if([fURL hasPrefix:@"hybridapi://setActionStyle?"]){
+            NSArray *bgArr = [fURL componentsSeparatedByString:@"?"];
+            NSString *bgStr = [bgArr objectAtIndex:1];
+            [defaults setObject:bgStr forKey:SLIDE_MENU_COLOR];
         }
         
         return NO;
@@ -614,6 +624,12 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"end");
     [self loadingEnd];
+    
+    if([defaults stringForKey:TOKEN_SEND_FIRST].length == 0){
+        NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
+        [mainWebView stringByEvaluatingJavaScriptFromString:jsValue];
+        [defaults setObject:@"ON" forKey:TOKEN_SEND_FIRST];
+    }
 }
 
 // 컨텐츠를 읽는 도중 오류가 발생할 경우 실행된다.
@@ -760,6 +776,15 @@
     KakaoTalkLinkObject *appLink = [KakaoTalkLinkObject createAppButton:@"앱으로 이동" actions:@[androidAppAction, iphoneAppAction, ipadAppAction, webAppAction]];
     
     return @[label, appLink];
+}
+
+#pragma mark -
+#pragma mark Push Noti
+
+- (void)push:(NSNotification *)noti{
+    NSURL *url = [NSURL URLWithString:[defaults stringForKey:TOKEN_URL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [mainWebView loadRequest:request];
 }
 
 @end

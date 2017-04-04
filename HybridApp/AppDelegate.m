@@ -93,6 +93,53 @@
 // 어플리케이션이 실행줄일 때 노티피케이션을 받았을떄 호출됨
 - (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
     NSLog(@"userInfo %@", userInfo);
+    
+    // 실행중
+    if (application.applicationState == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"알림" message:[[userInfo objectForKey:@"aps"] valueForKey:@"alert"] delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    // 백그라운드
+    } else {
+        
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    if(application.applicationState == UIApplicationStateInactive) {
+        
+        NSLog(@"Inactive");
+        NSLog(@"userInfo %@", userInfo);
+        
+        NSDictionary *apsInfo = [userInfo objectForKey:@"aps"];
+        NSString *url = [apsInfo objectForKey:@"url"];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults synchronize];
+        [defaults setObject:url forKey:TOKEN_URL];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadWebView" object:nil];
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    } else if (application.applicationState == UIApplicationStateBackground) {
+        
+        NSLog(@"Background");
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"b" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles: nil];
+        [alert show];
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    } else {
+        NSLog(@"Active");
+        
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"알림" message:[[userInfo objectForKey:@"aps"] valueForKey:@"alert"] delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+    }
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
@@ -134,7 +181,7 @@
     // 어플 자신이 호출된 경우에 얼럿창 띄우기
     NSString *strURL = [url absoluteString];
     
-    UIAlertView *alertView= [[UIAlertView alloc] initWithTitle:@"call message"
+    UIAlertView *alertView= [[UIAlertView alloc] initWithTitle:@"알림"
                                                        message:strURL
                                                       delegate:nil
                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];

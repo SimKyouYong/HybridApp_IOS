@@ -65,9 +65,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfo-dN-Krp">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main_top_bar.png" translatesAutoresizingMaskIntoConstraints="NO" id="1pi-KL-sb3">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXd-Bq-So3">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
@@ -103,14 +100,10 @@
                                     <constraint firstItem="U9F-3F-QiF" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" constant="10" id="5yx-Nq-B2p"/>
                                     <constraint firstItem="AXd-Bq-So3" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="A5D-qr-zKr"/>
                                     <constraint firstItem="U9F-3F-QiF" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" constant="10" id="BTX-5G-DyN"/>
-                                    <constraint firstAttribute="trailing" secondItem="1pi-KL-sb3" secondAttribute="trailing" id="Hq0-kV-ce8"/>
-                                    <constraint firstItem="1pi-KL-sb3" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="MSx-1R-Rz9"/>
                                     <constraint firstItem="AXd-Bq-So3" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="Q9c-vL-gbJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="1pi-KL-sb3" secondAttribute="bottom" id="S8q-FM-5lm"/>
                                     <constraint firstAttribute="bottom" secondItem="AXd-Bq-So3" secondAttribute="bottom" id="YBm-dI-nCg"/>
                                     <constraint firstItem="XUi-Df-UEj" firstAttribute="leading" secondItem="dfo-dN-Krp" secondAttribute="leading" id="ilS-Ik-BsX"/>
                                     <constraint firstItem="XUi-Df-UEj" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="l9R-3j-bbt"/>
-                                    <constraint firstItem="1pi-KL-sb3" firstAttribute="top" secondItem="dfo-dN-Krp" secondAttribute="top" id="uvU-Ui-01P"/>
                                     <constraint firstAttribute="trailing" secondItem="AXd-Bq-So3" secondAttribute="trailing" id="vVy-Pp-j7e"/>
                                 </constraints>
                             </view>
@@ -128,6 +121,7 @@
                         <outlet property="backButton" destination="XUi-Df-UEj" id="5aO-Wf-CLR"/>
                         <outlet property="menuButton" destination="U9F-3F-QiF" id="QJl-a3-R96"/>
                         <outlet property="titleText" destination="AXd-Bq-So3" id="Bln-96-Rjw"/>
+                        <outlet property="topView" destination="dfo-dN-Krp" id="Upt-GD-HmZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2A-Tq-gdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -136,7 +130,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="main_top_bar.png" width="640" height="98"/>
         <image name="main_top_menu_off.png" width="45" height="30"/>
     </resources>
 </document>

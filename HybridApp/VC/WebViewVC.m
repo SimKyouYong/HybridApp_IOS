@@ -9,6 +9,7 @@
 #import "WebViewVC.h"
 #import "DrawerNavigation.h"
 #import "GlobalHeader.h"
+#import "Reachability.h"
 
 @interface WebViewVC ()
 @property (strong, nonatomic) DrawerNavigation *rootNav;
@@ -24,6 +25,7 @@
 @synthesize buttonString;
 @synthesize buttonUrlString;
 @synthesize viewNum;
+@synthesize topView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,6 +34,10 @@
     
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
+    
+    NSString *bgViewColor = [defaults stringForKey:SLIDE_MENU_COLOR];
+    bgViewColor = [bgViewColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    topView.backgroundColor = [self colorWithHexString:bgViewColor];
     
     if([viewNum isEqualToString:@"2"]){
         menuButton.hidden = NO;
@@ -54,14 +60,14 @@
     [self.view addSubview:rightButton];
 
     // 웹뷰
-    webView = [[UIWebView alloc] init];
-    webView.delegate = self;
-    webView.scalesPageToFit = YES;
-    [self.view addSubview:webView];
+    secondWebView = [[UIWebView alloc] init];
+    secondWebView.delegate = self;
+    secondWebView.scalesPageToFit = YES;
+    [self.view addSubview:secondWebView];
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
     
     // 버튼 뷰
     buttonView = [[UIView alloc] init];
@@ -153,23 +159,23 @@
     if([[defaults stringForKey:BOTTOM_BUTTON_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_BUTTON_HIDDEN].length == 0){
         buttonView.hidden = NO;
         if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
-            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 150);
+            secondWebView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 150);
             buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 100, WIDTH_FRAME, 50);
             webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
             webviewBottomView.hidden = NO;
         }else{
-            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
+            secondWebView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
             buttonView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
             webviewBottomView.hidden = YES;
         }
     }else{
         buttonView.hidden = YES;
         if([[defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN] isEqualToString:@"NO"] || [defaults stringForKey:BOTTOM_WEBVIEW_HIDDEN].length == 0){
-            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
+            secondWebView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 100);
             webviewBottomView.frame = CGRectMake(0, HEIGHT_FRAME - 50, WIDTH_FRAME, 50);
             webviewBottomView.hidden = NO;
         }else{
-            webView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 50);
+            secondWebView.frame = CGRectMake(0, 50, WIDTH_FRAME, HEIGHT_FRAME - 50);
             webviewBottomView.hidden = YES;
         }
     }
@@ -200,6 +206,59 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSString *)decodeStr:(NSString *)str{
+    
+    CFStringRef s = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)str, CFSTR(""), kCFStringEncodingUTF8);
+    NSString* decoded = [NSString stringWithFormat:@"%@", (__bridge NSString*)s];
+    CFRelease(s);
+    return decoded;
+}
+
+#pragma mark -
+#pragma mark Webview Delegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    fURL = [NSString stringWithFormat:@"%@", request.URL];
+    fURL = [self decodeStr:fURL];
+    NSLog(@"fURL : %@", fURL);
+    
+    return YES;
+}
+
+// 웹뷰가 컨텐츠를 읽기 시작한 후에 실행된다.
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    NSLog(@"start");
+    
+    if([INTERNET_ON_OFF isEqualToString:@"ON"]){
+        if([self connectedToNetwork] == 0){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"네트워크에 접속할 수 없습니다." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+            [alertView show];
+        }else{
+            
+        }
+    }
+}
+
+// 웹뷰가 컨텐츠를 모두 읽은 후에 실행된다.
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"end");
+    
+    if([defaults stringForKey:TOKEN_SEND_SECOND].length == 0){
+        NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
+        [secondWebView stringByEvaluatingJavaScriptFromString:jsValue];
+        [defaults setObject:@"ON" forKey:TOKEN_SEND_SECOND];
+    }
+}
+
+// 컨텐츠를 읽는 도중 오류가 발생할 경우 실행된다.
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"ERROR : %@", error);
+}
+
+
+#pragma mark -
+#pragma mark Button Action
+
 - (IBAction)menuButton:(id)sender {
     [self.rootNav drawerToggle];
 }
@@ -207,7 +266,7 @@
 - (IBAction)topButton:(id)sender {
     NSURL *url = [NSURL URLWithString:buttonUrlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (IBAction)backButton:(id)sender {
@@ -225,56 +284,56 @@
 - (void)button1Action:(UIButton*)sender{
     NSURL *url = [NSURL URLWithString:@"http://www.naver.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (void)button2Action:(UIButton*)sender{
     NSURL *url = [NSURL URLWithString:@"http://www.daum.net"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (void)button3Action:(UIButton*)sender{
     NSURL *url = [NSURL URLWithString:@"http://www.google.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (void)button4Action:(UIButton*)sender{
     NSURL *url = [NSURL URLWithString:@"http://www.yahoo.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (void)button5Action:(UIButton*)sender{
     NSURL *url = [NSURL URLWithString:@"http://www.11st.co.kr"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 #pragma mark -
 #pragma mark WebView Button Action
 
 - (void)prevButton:(UIButton*)sender {
-    [webView goBack];
+    [secondWebView goBack];
 }
 
 - (void)fowardButton:(UIButton*)sender {
-    [webView goForward];
+    [secondWebView goForward];
 }
 
 - (void)homeButton:(UIButton*)sender {
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    [secondWebView loadRequest:request];
 }
 
 - (void)reloadButton:(UIButton*)sender {
-    [webView reload];
+    [secondWebView reload];
 }
 
 - (void)shareButton:(UIButton*)sender {
-    NSArray *actionItems = @[webView.request.URL];
+    NSArray *actionItems = @[secondWebView.request.URL];
     UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:actionItems applicationActivities:nil];
     
     [self presentViewController:avc animated:YES completion:nil];
@@ -313,10 +372,30 @@
     [[NSScanner scannerWithString:gString] scanHexInt:&g];
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
     
-    return [UIColor colorWithRed:((float) r / 255.0f)
-                           green:((float) g / 255.0f)
-                            blue:((float) b / 255.0f)
-                           alpha:1.0f];
+    return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
+}
+
+#pragma mark -
+#pragma mark Network Connect
+
+- (BOOL)connectedToNetwork
+{
+    /*
+     www.apple.com URL을 통해 인터넷 연결 상태를 확인합니다.
+     ReachableViaWiFi && ReachableViaWWAN
+     : Wi-fi와 LTE 둘다 안된다면 인터넷이 연결되지 않은 상태입니다.
+     */
+    
+    Reachability *r = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    NetworkStatus internetStatus = [r currentReachabilityStatus];
+    BOOL internet;
+    
+    if ((internetStatus != ReachableViaWiFi) && (internetStatus != ReachableViaWWAN)) {
+        internet = NO;
+    } else {
+        internet = YES;
+    }
+    return internet;
 }
 
 @end

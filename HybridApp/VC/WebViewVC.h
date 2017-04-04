@@ -11,7 +11,9 @@
 @interface WebViewVC : UIViewController<UIWebViewDelegate>{
     NSUserDefaults *defaults;
     
-    UIWebView *webView;
+    NSString *fURL;
+    
+    UIWebView *secondWebView;
     
     UIView *buttonView;
     UIView *webviewBottomView;
@@ -22,6 +24,8 @@
 @property (nonatomic) NSString *buttonString;
 @property (nonatomic) NSString *buttonUrlString;
 @property (nonatomic) NSString *viewNum;
+
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleText;
 

@@ -14,6 +14,9 @@
 
 // NSUserDefaults
 #define TOKEN_KEY               @"token_key"
+#define TOKEN_SEND_FIRST        @"token_send_first"
+#define TOKEN_SEND_SECOND       @"token_send_second"
+#define TOKEN_WEB_URL           @"token_url"
 
 // 로딩바 히든 & 3초 딜레이 후 
 #define LOADINGBAR_HIDDEN       @"loadingbar_hidden"
@@ -26,6 +29,9 @@
 // 하단 웹뷰 메뉴바
 #define BOTTOM_WEBVIEW_HIDDEN   @"bottom_webview_hidden"
 #define BOTTOM_WEBVIEW_COLOR    @"bottom_webview_color"
+
+// 슬라이드 메뉴바 색깔
+#define SLIDE_MENU_COLOR        @"slide_menu_color"
 
 // ON ? OFF
 // 팝업 뷰 ON - OFF
