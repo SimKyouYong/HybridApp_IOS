@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "GlobalHeader.h"
+#import "GlobalObject.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -57,6 +58,9 @@
     [locationManager startUpdatingLocation];
      */
     
+    TOKEN_CHECK1 = @"0";
+    TOKEN_CHECK2 = @"0";
+    
     return YES;
 }
 
@@ -83,6 +87,8 @@
         NSLog(@"Response:%@ %@\n", response, error);
     }];
     [dataTask resume];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"tokenInit" object:nil];
 }
 
 // registerForRemoteNotificationTyles 결과 실패했을 때 호출됨

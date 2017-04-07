@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2943B2571E972D9F0000B860 /* GlobalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2943B2561E972D9F0000B860 /* GlobalObject.m */; };
 		2989907A1E91DFED00B3F0F5 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 298990791E91DFED00B3F0F5 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2989907C1E91E06300B3F0F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2989907B1E91E06300B3F0F5 /* Security.framework */; };
 		2989907F1E91E91600B3F0F5 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2989907E1E91E91600B3F0F5 /* KakaoOpenSDK.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2943B2551E972D9F0000B860 /* GlobalObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalObject.h; sourceTree = "<group>"; };
+		2943B2561E972D9F0000B860 /* GlobalObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalObject.m; sourceTree = "<group>"; };
 		298990781E91DFED00B3F0F5 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		298990791E91DFED00B3F0F5 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		2989907B1E91E06300B3F0F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -165,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				FF2E25F81E5783AF0050399D /* GlobalHeader.h */,
+				2943B2551E972D9F0000B860 /* GlobalObject.h */,
+				2943B2561E972D9F0000B860 /* GlobalObject.m */,
 				FF8BE2ED1E5AF83F00ECD7D3 /* PopupView.h */,
 				FF8BE2EE1E5AF83F00ECD7D3 /* PopupView.m */,
 			);
@@ -343,6 +348,7 @@
 				FF2E26011E578D610050399D /* WebViewVC.m in Sources */,
 				FF2E25FC1E578A270050399D /* UIView+Toast.m in Sources */,
 				FF93753B1E65EF9F00462818 /* DrawerNavigation.m in Sources */,
+				2943B2571E972D9F0000B860 /* GlobalObject.m in Sources */,
 				FF2E25F71E5705FF0050399D /* MainVC.m in Sources */,
 				FF93753C1E65EF9F00462818 /* DrawerView.m in Sources */,
 				FF8BE35F1E61E0F100ECD7D3 /* Reachability.m in Sources */,
@@ -463,6 +469,7 @@
 				CODE_SIGN_ENTITLEMENTS = HybridApp/HybridApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ilseo Park (5A88U797YJ)";
 				DEVELOPMENT_TEAM = YZXM7V6SDM;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HybridApp/Lib/kakao",
@@ -473,7 +480,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";
+				PROVISIONING_PROFILE = "eaba6767-baa8-47dd-b66e-d3b03a1dffda";
 				PROVISIONING_PROFILE_SPECIFIER = HybridAppDev;
 			};
 			name = Debug;
@@ -486,6 +493,7 @@
 				CODE_SIGN_ENTITLEMENTS = HybridApp/HybridApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ilseo Park (5A88U797YJ)";
 				DEVELOPMENT_TEAM = YZXM7V6SDM;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HybridApp/Lib/kakao",
@@ -496,7 +504,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.clskmedia.hybridappdev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8deae455-e11d-433b-a7e0-4a51386a6a27";
+				PROVISIONING_PROFILE = "eaba6767-baa8-47dd-b66e-d3b03a1dffda";
 				PROVISIONING_PROFILE_SPECIFIER = HybridAppDev;
 			};
 			name = Release;

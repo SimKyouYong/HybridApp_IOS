@@ -10,6 +10,7 @@
 #import "DrawerNavigation.h"
 #import "GlobalHeader.h"
 #import "Reachability.h"
+#import "GlobalObject.h"
 
 @interface WebViewVC ()
 @property (strong, nonatomic) DrawerNavigation *rootNav;
@@ -243,10 +244,10 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     NSLog(@"end");
     
-    if([defaults stringForKey:TOKEN_SEND_SECOND].length == 0){
+    if([TOKEN_CHECK2 isEqualToString:@"0"]){
+        TOKEN_CHECK2 = @"1";
         NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
         [secondWebView stringByEvaluatingJavaScriptFromString:jsValue];
-        [defaults setObject:@"ON" forKey:TOKEN_SEND_SECOND];
     }
 }
 

@@ -10,6 +10,7 @@
 #import "UIView+Toast.h"
 #import "WebViewVC.h"
 #import "GlobalHeader.h"
+#import "GlobalObject.h"
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
 #import "DrawerNavigation.h"
@@ -29,8 +30,7 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"reloadWebView" object:nil];
-    
-    NSLog(@"%@", [self getUUID]);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(token:) name:@"tokenInit" object:nil];
     
     self.rootNav = (DrawerNavigation *)self.navigationController;
     
@@ -41,8 +41,6 @@
     
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
-    
-    NSLog(@"ddd : %@", [defaults stringForKey:TOKEN_KEY]);
     
     // 로딩관련
     loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
@@ -548,6 +546,11 @@
                 NSLog(@"Cannot open kakaotalk.");
             }
              */
+            
+        // 디바이스 넘버
+        }else if([fURL hasPrefix:@"js2ios://GetPhoneId?"]){
+            NSString *deviceValue = [NSString stringWithFormat:@"javascript:setPhoneNumber('%@')", [self getUUID]];
+            [mainWebView stringByEvaluatingJavaScriptFromString:deviceValue];
         }
     
         return NO;
@@ -593,11 +596,18 @@
             
             [self viewFrameInit];
         
-        // 슬라이드 메뉴 bf
+        // 슬라이드 메뉴 bg
         }else if([fURL hasPrefix:@"hybridapi://setActionStyle?"]){
             NSArray *bgArr = [fURL componentsSeparatedByString:@"?"];
             NSString *bgStr = [bgArr objectAtIndex:1];
             [defaults setObject:bgStr forKey:SLIDE_MENU_COLOR];
+        
+        // 페이지 공유
+        }else if([fURL hasPrefix:@"hybridapi://shareUrl"]){
+            NSArray *actionItems = @[mainWebView.request.URL];
+            UIActivityViewController *avc = [[UIActivityViewController alloc] initWithActivityItems:actionItems applicationActivities:nil];
+            
+            [self presentViewController:avc animated:YES completion:nil];
         }
         
         return NO;
@@ -625,10 +635,10 @@
     NSLog(@"end");
     [self loadingEnd];
     
-    if([defaults stringForKey:TOKEN_SEND_FIRST].length == 0){
+    if([TOKEN_CHECK1 isEqualToString:@"0"]){
+        TOKEN_CHECK1 = @"1";
         NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
         [mainWebView stringByEvaluatingJavaScriptFromString:jsValue];
-        [defaults setObject:@"ON" forKey:TOKEN_SEND_FIRST];
     }
 }
 
@@ -779,12 +789,17 @@
 }
 
 #pragma mark -
-#pragma mark Push Noti
+#pragma mark Noti
 
 - (void)push:(NSNotification *)noti{
     NSURL *url = [NSURL URLWithString:[defaults stringForKey:TOKEN_URL]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
+}
+
+- (void)token:(NSNotification *)noti{
+    NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
+    [mainWebView stringByEvaluatingJavaScriptFromString:jsValue];
 }
 
 @end

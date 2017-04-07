@@ -14,8 +14,6 @@
 
 // NSUserDefaults
 #define TOKEN_KEY               @"token_key"
-#define TOKEN_SEND_FIRST        @"token_send_first"
-#define TOKEN_SEND_SECOND       @"token_send_second"
 #define TOKEN_WEB_URL           @"token_url"
 
 // 로딩바 히든 & 3초 딜레이 후 
@@ -44,3 +42,8 @@
 
 // 인터넷 체크(웹 URL) ON - OFF
 #define INTERNET_ON_OFF         @"ON"
+
+// 메모리
+#define TOKEN_CHECK1            [GlobalObject sharedInstance].tokenCheck1
+#define TOKEN_CHECK2            [GlobalObject sharedInstance].tokenCheck2
+
