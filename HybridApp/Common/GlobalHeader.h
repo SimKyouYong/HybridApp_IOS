@@ -47,4 +47,5 @@
 // 메모리
 #define TOKEN_CHECK1            [GlobalObject sharedInstance].tokenCheck1
 #define TOKEN_CHECK2            [GlobalObject sharedInstance].tokenCheck2
+#define MENU_IMAGE_SPLIT        [GlobalObject sharedInstance].menuImageSplit
 

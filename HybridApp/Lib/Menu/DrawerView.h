@@ -26,4 +26,12 @@
 - (IBAction)fourButton:(id)sender;
 - (IBAction)fiveButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIImageView *firstImage;
+@property (weak, nonatomic) IBOutlet UIImageView *secondImage;
+@property (weak, nonatomic) IBOutlet UIImageView *thirdImage;
+@property (weak, nonatomic) IBOutlet UIImageView *fourImage;
+@property (weak, nonatomic) IBOutlet UIImageView *fiveImage;
+
+- (void)reloadMenuImage;
+
 @end

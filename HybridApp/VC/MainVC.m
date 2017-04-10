@@ -420,6 +420,11 @@
             NSArray *buttonUrlArr2 = [buttonUrlStr1 componentsSeparatedByString:@"&"];
             [defaults setObject:[buttonUrlArr2 objectAtIndex:0] forKey:SLIDE_MOVE_BUTTON_URL];
             
+            NSArray *splitArr1 = [fURL componentsSeparatedByString:@"new="];
+            NSString *splitStr1 = [splitArr1 objectAtIndex:1];
+            NSArray *splitArr2 = [splitStr1 componentsSeparatedByString:@"&"];
+            MENU_IMAGE_SPLIT = [splitArr2 objectAtIndex:0];
+            
             WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
             _webViewVC.urlString = [defaults stringForKey:SLIDE_MOVE_URL];
             _webViewVC.titleString = [defaults stringForKey:SLIDE_MOVE_TITLE];

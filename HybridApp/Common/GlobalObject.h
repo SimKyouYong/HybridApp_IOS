@@ -14,5 +14,6 @@
 
 @property (nonatomic, strong) NSString *tokenCheck1;
 @property (nonatomic, strong) NSString *tokenCheck2;
+@property (nonatomic, strong) NSString *menuImageSplit;
 
 @end

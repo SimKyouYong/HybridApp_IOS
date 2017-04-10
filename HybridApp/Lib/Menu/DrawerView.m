@@ -8,10 +8,16 @@
 
 #import "DrawerView.h"
 #import "GlobalHeader.h"
+#import "GlobalObject.h"
 
 @implementation DrawerView
 
 @synthesize delegate;
+@synthesize firstImage;
+@synthesize secondImage;
+@synthesize thirdImage;
+@synthesize fourImage;
+@synthesize fiveImage;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,6 +41,29 @@
     [loadingView addSubview:activityView];
     [self addSubview:loadingView];
     loadingView.hidden = YES;
+}
+
+- (void)reloadMenuImage{
+    firstImage.hidden = YES;
+    secondImage.hidden = YES;
+    thirdImage.hidden = YES;
+    fourImage.hidden = YES;
+    fiveImage.hidden = YES;
+    
+    NSArray *splitArr = [MENU_IMAGE_SPLIT componentsSeparatedByString: @"/"];
+    for (int i = 0; i < [splitArr count]; i++) {
+        if([[splitArr objectAtIndex:i] isEqualToString:@"1"]){
+            firstImage.hidden = NO;
+        }else if([[splitArr objectAtIndex:i] isEqualToString:@"2"]){
+            secondImage.hidden = NO;
+        }else if([[splitArr objectAtIndex:i] isEqualToString:@"3"]){
+            thirdImage.hidden = NO;
+        }else if([[splitArr objectAtIndex:i] isEqualToString:@"4"]){
+            fourImage.hidden = NO;
+        }else if([[splitArr objectAtIndex:i] isEqualToString:@"5"]){
+            fiveImage.hidden = NO;
+        }
+    }
 }
 
 #pragma mark -

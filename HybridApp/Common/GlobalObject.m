@@ -31,6 +31,7 @@
     if (self) {
         _tokenCheck1 = @"";
         _tokenCheck2 = @"";
+        _menuImageSplit = @"";
     }
     
     return self;

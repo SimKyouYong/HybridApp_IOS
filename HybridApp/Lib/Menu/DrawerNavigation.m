@@ -85,7 +85,7 @@
     self.pan_gr.maximumNumberOfTouches = 1;
     self.pan_gr.minimumNumberOfTouches = 1;
     //self.pan_gr.delegate = self;
-    [self.view addGestureRecognizer:self.pan_gr];
+    //[self.view addGestureRecognizer:self.pan_gr];
     
     [self.view bringSubviewToFront:self.navigationBar];
 }
@@ -126,6 +126,8 @@
                      completion:nil];
     
     self.isOpen= YES;
+    
+    [self.drawerView reloadMenuImage];
 }
 
 - (void)closeNavigationDrawer{
@@ -161,7 +163,7 @@
     [self closeNavigationDrawer];
 }
 
--(void)moveDrawer:(UIPanGestureRecognizer *)recognizer
+- (void)moveDrawer:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.view];
     CGPoint velocity = [(UIPanGestureRecognizer*)recognizer velocityInView:self.view];

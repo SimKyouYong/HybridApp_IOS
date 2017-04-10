@@ -36,6 +36,12 @@
 		FF93753B1E65EF9F00462818 /* DrawerNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375371E65EF9F00462818 /* DrawerNavigation.m */; };
 		FF93753C1E65EF9F00462818 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375391E65EF9F00462818 /* DrawerView.m */; };
 		FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF93753A1E65EF9F00462818 /* DrawerView.xib */; };
+		FFD798B21E9BBC96007176A5 /* menu_btn_01.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */; };
+		FFD798B31E9BBC96007176A5 /* menu_btn_02.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */; };
+		FFD798B41E9BBC96007176A5 /* menu_btn_03.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AF1E9BBC96007176A5 /* menu_btn_03.png */; };
+		FFD798B51E9BBC96007176A5 /* menu_btn_04.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798B01E9BBC96007176A5 /* menu_btn_04.png */; };
+		FFD798B61E9BBC96007176A5 /* menu_btn_05.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798B11E9BBC96007176A5 /* menu_btn_05.png */; };
+		FFD798B81E9BBCC7007176A5 /* menu_new.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798B71E9BBCC7007176A5 /* menu_new.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +89,12 @@
 		FF9375381E65EF9F00462818 /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
 		FF9375391E65EF9F00462818 /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
 		FF93753A1E65EF9F00462818 /* DrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerView.xib; sourceTree = "<group>"; };
+		FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_01.png; sourceTree = "<group>"; };
+		FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_02.png; sourceTree = "<group>"; };
+		FFD798AF1E9BBC96007176A5 /* menu_btn_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_03.png; sourceTree = "<group>"; };
+		FFD798B01E9BBC96007176A5 /* menu_btn_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_04.png; sourceTree = "<group>"; };
+		FFD798B11E9BBC96007176A5 /* menu_btn_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_05.png; sourceTree = "<group>"; };
+		FFD798B71E9BBCC7007176A5 /* menu_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_new.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +245,12 @@
 		FF93752E1E65EF9500462818 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FFD798B71E9BBCC7007176A5 /* menu_new.png */,
+				FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */,
+				FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */,
+				FFD798AF1E9BBC96007176A5 /* menu_btn_03.png */,
+				FFD798B01E9BBC96007176A5 /* menu_btn_04.png */,
+				FFD798B11E9BBC96007176A5 /* menu_btn_05.png */,
 				FF7BFA4B1E8E9AC300168D68 /* tab_home.png */,
 				FF7BFA4C1E8E9AC300168D68 /* tab_next.png */,
 				FF7BFA4D1E8E9AC300168D68 /* tab_prev.png */,
@@ -326,15 +344,21 @@
 			files = (
 				FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */,
 				FF7BFA521E8E9AC300168D68 /* tab_prev.png in Resources */,
+				FFD798B41E9BBC96007176A5 /* menu_btn_03.png in Resources */,
+				FFD798B21E9BBC96007176A5 /* menu_btn_01.png in Resources */,
 				FF7BFA531E8E9AC300168D68 /* tab_reload.png in Resources */,
 				FF2E25E71E5705A50050399D /* Assets.xcassets in Resources */,
 				FF9375321E65EF9500462818 /* main_top_bar.png in Resources */,
+				FFD798B31E9BBC96007176A5 /* menu_btn_02.png in Resources */,
 				FF7BFA501E8E9AC300168D68 /* tab_home.png in Resources */,
 				FF7BFA541E8E9AC300168D68 /* tab_share.png in Resources */,
 				FF7BFA511E8E9AC300168D68 /* tab_next.png in Resources */,
+				FFD798B51E9BBC96007176A5 /* menu_btn_04.png in Resources */,
 				FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */,
 				FF2E25E51E5705A50050399D /* Main.storyboard in Resources */,
+				FFD798B61E9BBC96007176A5 /* menu_btn_05.png in Resources */,
 				FF9375331E65EF9500462818 /* main_top_menu_off.png in Resources */,
+				FFD798B81E9BBCC7007176A5 /* menu_new.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

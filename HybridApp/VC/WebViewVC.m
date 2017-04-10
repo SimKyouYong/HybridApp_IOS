@@ -67,6 +67,7 @@
     [self.view addSubview:secondWebView];
     
     NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"%@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
     
@@ -221,7 +222,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     fURL = [NSString stringWithFormat:@"%@", request.URL];
     fURL = [self decodeStr:fURL];
-    NSLog(@"fURL : %@", fURL);
+    NSLog(@"WebView fURL : %@", fURL);
     
     if ([[[request URL] absoluteString] hasPrefix:@"js2ios:"]){
         // 앱 화면이동 숨기기
