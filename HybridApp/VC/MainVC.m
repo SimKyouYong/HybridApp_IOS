@@ -42,127 +42,138 @@
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     
-    // 로딩관련
-    loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
-    loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    loadingView.clipsToBounds = YES;
-    loadingView.layer.cornerRadius = 10.0;
-    
-    activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.frame = CGRectMake(65, 40, activityView.bounds.size.width, activityView.bounds.size.height);
-    [loadingView addSubview:activityView];
-    
-    loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 115, 130, 42)];
-    loadingLabel.backgroundColor = [UIColor clearColor];
-    loadingLabel.numberOfLines = 2;
-    loadingLabel.textColor = [UIColor whiteColor];
-    loadingLabel.adjustsFontSizeToFitWidth = YES;
-    loadingLabel.textAlignment = NSTextAlignmentCenter;
-    loadingLabel.text = [NSString stringWithFormat:@"로딩중..."];
-    [loadingView addSubview:loadingLabel];
-    [self.view addSubview:loadingView];
-    loadingView.hidden = YES;
-    
-    // 웹뷰
-    mainWebView = [[UIWebView alloc] init];
-    mainWebView.delegate = self;
-    mainWebView.scalesPageToFit = YES;
-    [self.view addSubview:mainWebView];
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [mainWebView loadRequest:request];
-    
-    // 버튼 뷰
-    buttonView = [[UIView alloc] init];
-    buttonView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:buttonView];
-    
-    // 웹뷰 하단 버튼 뷰
-    webviewBottomView = [[UIView alloc] init];
-    webviewBottomView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:webviewBottomView];
-    
-    [self viewFrameInit];
-    [self viewBottomButtonBgInit];
-    [self viewBottomWebviewBgInit];
-    
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button1 setTitle:@"버튼1" forState:UIControlStateNormal];
-    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button1.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
-    [button1 addTarget:self action:@selector(button1Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button1.layer setBorderWidth:0.5f];
-    [buttonView addSubview:button1];
-    
-    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button2 setTitle:@"버튼2" forState:UIControlStateNormal];
-    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button2.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
-    [button2 addTarget:self action:@selector(button2Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button2.layer setBorderWidth:0.5f];
-    [buttonView addSubview:button2];
-    
-    UIButton *button3 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button3 setTitle:@"버튼3" forState:UIControlStateNormal];
-    [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button3.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
-    [button3 addTarget:self action:@selector(button3Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button3.layer setBorderWidth:0.5f];
-    [buttonView addSubview:button3];
-    
-    UIButton *button4 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button4 setTitle:@"버튼4" forState:UIControlStateNormal];
-    [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button4.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
-    [button4 addTarget:self action:@selector(button4Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button4.layer setBorderWidth:0.5f];
-    [buttonView addSubview:button4];
-    
-    UIButton *button5 = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button5 setTitle:@"버튼5" forState:UIControlStateNormal];
-    [button5 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button5.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
-    [button5 addTarget:self action:@selector(button5Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button5.layer setBorderWidth:0.5f];
-    [buttonView addSubview:button5];
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
-    backButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
-    [backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
-    [webviewBottomView addSubview:backButton];
-    
-    UIButton *fowardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fowardButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
-    fowardButton.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
-    [fowardButton addTarget:self action:@selector(fowardButton:) forControlEvents:UIControlEventTouchUpInside];
-    [webviewBottomView addSubview:fowardButton];
-    
-    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [homeButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
-    homeButton.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
-    [homeButton addTarget:self action:@selector(homeButton:) forControlEvents:UIControlEventTouchUpInside];
-    [webviewBottomView addSubview:homeButton];
-    
-    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [reloadButton setImage:[UIImage imageNamed:@"tab_reload"] forState:UIControlStateNormal];
-    reloadButton.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
-    [reloadButton addTarget:self action:@selector(reloadButton:) forControlEvents:UIControlEventTouchUpInside];
-    [webviewBottomView addSubview:reloadButton];
-    
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setImage:[UIImage imageNamed:@"tab_share"] forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
-    [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
-    [webviewBottomView addSubview:shareButton];
-    
-    popupView = [[PopupView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [self.view addSubview:popupView];
-    popupView.hidden = YES;
-    
-    [self.view bringSubviewToFront:loadingView];
+    if([[defaults stringForKey:SLIDE_MOVE] isEqualToString:@"FALSE"]){
+        WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
+        _webViewVC.urlString = [defaults stringForKey:SLIDE_MOVE_URL];
+        _webViewVC.titleString = [defaults stringForKey:SLIDE_MOVE_TITLE];
+        _webViewVC.buttonString = [defaults stringForKey:SLIDE_MOVE_BUTTON_TITLE];
+        _webViewVC.buttonUrlString = [defaults stringForKey:SLIDE_MOVE_BUTTON_URL];
+        _webViewVC.viewNum = @"2";
+        
+        [self.rootNav pushViewController:_webViewVC animated:NO];
+    }else{
+        // 로딩관련
+        loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
+        loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        loadingView.clipsToBounds = YES;
+        loadingView.layer.cornerRadius = 10.0;
+        
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        activityView.frame = CGRectMake(65, 40, activityView.bounds.size.width, activityView.bounds.size.height);
+        [loadingView addSubview:activityView];
+        
+        loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 115, 130, 42)];
+        loadingLabel.backgroundColor = [UIColor clearColor];
+        loadingLabel.numberOfLines = 2;
+        loadingLabel.textColor = [UIColor whiteColor];
+        loadingLabel.adjustsFontSizeToFitWidth = YES;
+        loadingLabel.textAlignment = NSTextAlignmentCenter;
+        loadingLabel.text = [NSString stringWithFormat:@"로딩중..."];
+        [loadingView addSubview:loadingLabel];
+        [self.view addSubview:loadingView];
+        loadingView.hidden = YES;
+        
+        // 웹뷰
+        mainWebView = [[UIWebView alloc] init];
+        mainWebView.delegate = self;
+        mainWebView.scalesPageToFit = YES;
+        [self.view addSubview:mainWebView];
+        
+        NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php"];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [mainWebView loadRequest:request];
+        
+        // 버튼 뷰
+        buttonView = [[UIView alloc] init];
+        buttonView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:buttonView];
+        
+        // 웹뷰 하단 버튼 뷰
+        webviewBottomView = [[UIView alloc] init];
+        webviewBottomView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:webviewBottomView];
+        
+        [self viewFrameInit];
+        [self viewBottomButtonBgInit];
+        [self viewBottomWebviewBgInit];
+        
+        UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button1 setTitle:@"버튼1" forState:UIControlStateNormal];
+        [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button1.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
+        [button1 addTarget:self action:@selector(button1Action:) forControlEvents:UIControlEventTouchUpInside];
+        [button1.layer setBorderWidth:0.5f];
+        [buttonView addSubview:button1];
+        
+        UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button2 setTitle:@"버튼2" forState:UIControlStateNormal];
+        [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button2.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
+        [button2 addTarget:self action:@selector(button2Action:) forControlEvents:UIControlEventTouchUpInside];
+        [button2.layer setBorderWidth:0.5f];
+        [buttonView addSubview:button2];
+        
+        UIButton *button3 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button3 setTitle:@"버튼3" forState:UIControlStateNormal];
+        [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button3.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
+        [button3 addTarget:self action:@selector(button3Action:) forControlEvents:UIControlEventTouchUpInside];
+        [button3.layer setBorderWidth:0.5f];
+        [buttonView addSubview:button3];
+        
+        UIButton *button4 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button4 setTitle:@"버튼4" forState:UIControlStateNormal];
+        [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button4.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
+        [button4 addTarget:self action:@selector(button4Action:) forControlEvents:UIControlEventTouchUpInside];
+        [button4.layer setBorderWidth:0.5f];
+        [buttonView addSubview:button4];
+        
+        UIButton *button5 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button5 setTitle:@"버튼5" forState:UIControlStateNormal];
+        [button5 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button5.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
+        [button5 addTarget:self action:@selector(button5Action:) forControlEvents:UIControlEventTouchUpInside];
+        [button5.layer setBorderWidth:0.5f];
+        [buttonView addSubview:button5];
+        
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
+        backButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
+        [backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
+        [webviewBottomView addSubview:backButton];
+        
+        UIButton *fowardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [fowardButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
+        fowardButton.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
+        [fowardButton addTarget:self action:@selector(fowardButton:) forControlEvents:UIControlEventTouchUpInside];
+        [webviewBottomView addSubview:fowardButton];
+        
+        UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [homeButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
+        homeButton.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
+        [homeButton addTarget:self action:@selector(homeButton:) forControlEvents:UIControlEventTouchUpInside];
+        [webviewBottomView addSubview:homeButton];
+        
+        UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [reloadButton setImage:[UIImage imageNamed:@"tab_reload"] forState:UIControlStateNormal];
+        reloadButton.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
+        [reloadButton addTarget:self action:@selector(reloadButton:) forControlEvents:UIControlEventTouchUpInside];
+        [webviewBottomView addSubview:reloadButton];
+        
+        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [shareButton setImage:[UIImage imageNamed:@"tab_share"] forState:UIControlStateNormal];
+        shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
+        [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
+        [webviewBottomView addSubview:shareButton];
+        
+        popupView = [[PopupView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [self.view addSubview:popupView];
+        popupView.hidden = YES;
+        
+        [self.view bringSubviewToFront:loadingView];
+    }
     
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
     {
@@ -343,22 +354,22 @@
             NSArray *urlArr1 = [fURL componentsSeparatedByString:@"url="];
             NSString *urlStr1 = [urlArr1 objectAtIndex:1];
             NSArray *urlArr2 = [urlStr1 componentsSeparatedByString:@"&"];
-            NSString *urlValue = [urlArr2 objectAtIndex:0];
+            [defaults setObject:[urlArr2 objectAtIndex:0] forKey:SLIDE_MOVE_URL];
             
             NSArray *titleArr1 = [fURL componentsSeparatedByString:@"title="];
             NSString *titleStr1 = [titleArr1 objectAtIndex:1];
             NSArray *titleArr2 = [titleStr1 componentsSeparatedByString:@"&"];
-            NSString *titleValue = [titleArr2 objectAtIndex:0];
+            [defaults setObject:[titleArr2 objectAtIndex:0] forKey:SLIDE_MOVE_TITLE];
             
             NSArray *buttonArr1 = [fURL componentsSeparatedByString:@"button="];
             NSString *buttonStr1 = [buttonArr1 objectAtIndex:1];
             NSArray *buttonArr2 = [buttonStr1 componentsSeparatedByString:@"&"];
-            NSString *buttonValue = [buttonArr2 objectAtIndex:0];
+            [defaults setObject:[buttonArr2 objectAtIndex:0] forKey:SLIDE_MOVE_BUTTON_TITLE];
             
             NSArray *buttonUrlArr1 = [fURL componentsSeparatedByString:@"button_url="];
             NSString *buttonUrlStr1 = [buttonUrlArr1 objectAtIndex:1];
             NSArray *buttonUrlArr2 = [buttonUrlStr1 componentsSeparatedByString:@"&"];
-            NSString *buttonUrlValue = [buttonUrlArr2 objectAtIndex:0];
+            [defaults setObject:[buttonUrlArr2 objectAtIndex:0] forKey:SLIDE_MOVE_BUTTON_URL];
             
             NSString *supTypeValue = @"";
             if([appValue isEqualToString:@"top"]){
@@ -372,10 +383,10 @@
             }
             
             WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
-            _webViewVC.urlString = urlValue;
-            _webViewVC.titleString = titleValue;
-            _webViewVC.buttonString = buttonValue;
-            _webViewVC.buttonUrlString = buttonUrlValue;
+            _webViewVC.urlString = [defaults stringForKey:SLIDE_MOVE_URL];
+            _webViewVC.titleString = [defaults stringForKey:SLIDE_MOVE_TITLE];
+            _webViewVC.buttonString = [defaults stringForKey:SLIDE_MOVE_BUTTON_TITLE];
+            _webViewVC.buttonUrlString = [defaults stringForKey:SLIDE_MOVE_BUTTON_URL];
             _webViewVC.viewNum = @"1";
             
             CATransition *transition = [CATransition animation];
@@ -392,28 +403,28 @@
             NSArray *urlArr1 = [fURL componentsSeparatedByString:@"url="];
             NSString *urlStr1 = [urlArr1 objectAtIndex:1];
             NSArray *urlArr2 = [urlStr1 componentsSeparatedByString:@"&"];
-            NSString *urlValue = [urlArr2 objectAtIndex:0];
+            [defaults setObject:[urlArr2 objectAtIndex:0] forKey:SLIDE_MOVE_URL];
             
             NSArray *titleArr1 = [fURL componentsSeparatedByString:@"title="];
             NSString *titleStr1 = [titleArr1 objectAtIndex:1];
             NSArray *titleArr2 = [titleStr1 componentsSeparatedByString:@"&"];
-            NSString *titleValue = [titleArr2 objectAtIndex:0];
+            [defaults setObject:[titleArr2 objectAtIndex:0] forKey:SLIDE_MOVE_TITLE];
             
             NSArray *buttonArr1 = [fURL componentsSeparatedByString:@"button="];
             NSString *buttonStr1 = [buttonArr1 objectAtIndex:1];
             NSArray *buttonArr2 = [buttonStr1 componentsSeparatedByString:@"&"];
-            NSString *buttonValue = [buttonArr2 objectAtIndex:0];
+            [defaults setObject:[buttonArr2 objectAtIndex:0] forKey:SLIDE_MOVE_BUTTON_TITLE];
             
             NSArray *buttonUrlArr1 = [fURL componentsSeparatedByString:@"button_url="];
             NSString *buttonUrlStr1 = [buttonUrlArr1 objectAtIndex:1];
             NSArray *buttonUrlArr2 = [buttonUrlStr1 componentsSeparatedByString:@"&"];
-            NSString *buttonUrlValue = [buttonUrlArr2 objectAtIndex:0];
+            [defaults setObject:[buttonUrlArr2 objectAtIndex:0] forKey:SLIDE_MOVE_BUTTON_URL];
             
             WebViewVC *_webViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"webViewVC"];
-            _webViewVC.urlString = urlValue;
-            _webViewVC.titleString = titleValue;
-            _webViewVC.buttonString = buttonValue;
-            _webViewVC.buttonUrlString = buttonUrlValue;
+            _webViewVC.urlString = [defaults stringForKey:SLIDE_MOVE_URL];
+            _webViewVC.titleString = [defaults stringForKey:SLIDE_MOVE_TITLE];
+            _webViewVC.buttonString = [defaults stringForKey:SLIDE_MOVE_BUTTON_TITLE];
+            _webViewVC.buttonUrlString = [defaults stringForKey:SLIDE_MOVE_BUTTON_URL];
             _webViewVC.viewNum = @"2";
             
             [self.rootNav pushViewController:_webViewVC animated:NO];
@@ -458,10 +469,6 @@
             NSString *talkStr5 = [talkArr5 objectAtIndex:1];
             NSArray *talkArr6 = [talkStr5 componentsSeparatedByString:@"&"];
             NSString *returnValue = [talkArr6 objectAtIndex:0];
-            
-            NSLog(@"%@", urlValue);
-            NSLog(@"%@", nameValue);
-            NSLog(@"%@", returnValue);
             
             KLKTemplate *template = [KLKFeedTemplate feedTemplateWithBuilderBlock:^(KLKFeedTemplateBuilder * _Nonnull feedTemplateBuilder) {
                 // 컨텐츠
@@ -508,10 +515,6 @@
             NSArray *talkArr6 = [talkStr5 componentsSeparatedByString:@"&"];
             NSString *returnValue = [talkArr6 objectAtIndex:0];
             
-            NSLog(@"%@", urlValue);
-            NSLog(@"%@", nameValue);
-            NSLog(@"%@", returnValue);
-            
             KLKTemplate *template = [KLKFeedTemplate feedTemplateWithBuilderBlock:^(KLKFeedTemplateBuilder * _Nonnull feedTemplateBuilder) {
                 feedTemplateBuilder.content = [KLKContentObject contentObjectWithBuilderBlock:^(KLKContentBuilder * _Nonnull contentBuilder) {
                     contentBuilder.title = @"APP";
@@ -551,6 +554,34 @@
         }else if([fURL hasPrefix:@"js2ios://GetPhoneId?"]){
             NSString *deviceValue = [NSString stringWithFormat:@"javascript:setPhoneNumber('%@')", [self getUUID]];
             [mainWebView stringByEvaluatingJavaScriptFromString:deviceValue];
+        
+        // 앱 화면이동 숨기기
+        }else if([fURL hasPrefix:@"js2ios://SETEXIT_TYPE1?"]){
+            NSArray *alertArr1 = [fURL componentsSeparatedByString:@"name="];
+            NSString *alertStr1 = [alertArr1 objectAtIndex:1];
+            NSArray *alertArr2 = [alertStr1 componentsSeparatedByString:@"&"];
+            NSString *alertValue = [alertArr2 objectAtIndex:0];
+            
+            if([alertValue isEqualToString:@"true"]){
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"true" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+                [alertView show];
+            }
+            
+            [defaults setObject:@"TRUE" forKey:SLIDE_MOVE];
+        
+        // 앱 화면이동 보이기
+        }else if([fURL hasPrefix:@"js2ios://SETEXIT_TYPE2?"]){
+            NSArray *alertArr1 = [fURL componentsSeparatedByString:@"name="];
+            NSString *alertStr1 = [alertArr1 objectAtIndex:1];
+            NSArray *alertArr2 = [alertStr1 componentsSeparatedByString:@"&"];
+            NSString *alertValue = [alertArr2 objectAtIndex:0];
+            
+            if([alertValue isEqualToString:@"false"]){
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"false" delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
+                [alertView show];
+            }
+            
+            [defaults setObject:@"FALSE" forKey:SLIDE_MOVE];
         }
     
         return NO;

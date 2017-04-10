@@ -50,6 +50,11 @@
         }
     }
     
+    // 앱 화면이동
+    if([defaults stringForKey:SLIDE_MOVE].length == 0){
+        [defaults setObject:@"TRUE" forKey:SLIDE_MOVE];
+    }
+    
     /*
     // 사용중에만 위치 정보 요청
     if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
@@ -148,11 +153,21 @@
     }
 }
 
+#pragma mark -
+#pragma mark push ios10 ver
+
+// 10버전 이상일경우 이곳으로 메세지가 온다
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
-    completionHandler(UNNotificationPresentationOptionAlert);
+    
+    completionHandler(UNNotificationPresentationOptionAlert); //푸시 배너를 띄운다.
+    
+    NSLog(@"userNotificationCenter push data = %@",notification.request.content.userInfo);
 }
 
+// 앱이 백그라운드로 살아있고 푸시가 올떄 배너로 앱 진입시 이곳으로 들어온다.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
+    
+    NSLog(@"userNotificationCenter");
     completionHandler();
 }
 

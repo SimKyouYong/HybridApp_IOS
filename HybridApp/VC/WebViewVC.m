@@ -223,6 +223,15 @@
     fURL = [self decodeStr:fURL];
     NSLog(@"fURL : %@", fURL);
     
+    if ([[[request URL] absoluteString] hasPrefix:@"js2ios:"]){
+        // 앱 화면이동 숨기기
+        if([fURL hasPrefix:@"js2ios://SETEXIT_TYPE1?"]){
+            [defaults setObject:@"TRUE" forKey:SLIDE_MOVE];
+        }
+        
+        return NO;
+    }
+    
     return YES;
 }
 

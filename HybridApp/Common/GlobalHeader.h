@@ -31,11 +31,12 @@
 // 슬라이드 메뉴바 색깔
 #define SLIDE_MENU_COLOR        @"slide_menu_color"
 
-// ON ? OFF
-// 팝업 뷰 ON - OFF
-
-// 프로그레스바 ON - OFF
-#define PROGRESS_ON_OFF         @"ON"
+// 앱 화면이동 TRUE & FALSE & URL & 타이틀 & 버튼타이틀 & 버튼URL
+#define SLIDE_MOVE              @"slide_move"
+#define SLIDE_MOVE_URL          @"slide_move_url"
+#define SLIDE_MOVE_TITLE        @"slide_move_title"
+#define SLIDE_MOVE_BUTTON_TITLE @"slide_move_button_title"
+#define SLIDE_MOVE_BUTTON_URL   @"slide_move_button_url"
 
 // GPS ON - OFF
 #define GPS_ON_OFF              @"ON"
