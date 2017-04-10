@@ -552,7 +552,7 @@
             
         // 디바이스 넘버
         }else if([fURL hasPrefix:@"js2ios://GetPhoneId?"]){
-            NSString *deviceValue = [NSString stringWithFormat:@"javascript:setPhoneNumber('%@')", [self getUUID]];
+            NSString *deviceValue = [NSString stringWithFormat:@"javascript:setDeviceidNumber('%@')", [self getUUID]];
             [mainWebView stringByEvaluatingJavaScriptFromString:deviceValue];
         
         // 앱 화면이동 숨기기
