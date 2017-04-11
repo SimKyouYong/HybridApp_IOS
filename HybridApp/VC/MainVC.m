@@ -107,8 +107,7 @@
                 addressValue = [NSString stringWithFormat:@"%@ %@ %@ %@", country, state, city, street];
             }
             
-            NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , @"주소" , [self getUUID] , addressValue];
-            
+            NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , addressValue , [self getUUID] , @""];
             NSString *encodedString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSURL *weburl = [NSURL URLWithString:encodedString];
             NSURL *url = weburl;
@@ -370,6 +369,12 @@
             NSString *loadingStr1 = [loadingArr1 objectAtIndex:1];
             NSArray *loadingArr2 = [loadingStr1 componentsSeparatedByString:@"&"];
             NSString *loadingMsg = [loadingArr2 objectAtIndex:0];
+            
+            NSArray *loadingArr3 = [fURL componentsSeparatedByString:@"return="];
+            NSString *loadingStr3 = [loadingArr3 objectAtIndex:1];
+            NSArray *loadingArr4 = [loadingStr3 componentsSeparatedByString:@"&"];
+            NSString *loadingReturn = [loadingArr4 objectAtIndex:0];
+            
             if([loadingMsg isEqualToString:@"true"]){
                 [defaults setObject:@"true" forKey:LOADINGBAR_HIDDEN];
             }else{
@@ -377,17 +382,29 @@
             }
             [defaults setObject:@"false" forKey:LOADINGBAR_TIME];
             
+            NSString *javaValue = [NSString stringWithFormat:@"javascript:%@('%@')", loadingReturn, loadingMsg];
+            [mainWebView stringByEvaluatingJavaScriptFromString:javaValue];
+            
         // 로딩바 3초 딜레이 완료후
         }else if([fURL hasPrefix:@"js2ios://ProgressBar3?"]){
             NSArray *loadingArr1 = [fURL componentsSeparatedByString:@"name="];
             NSString *loadingStr1 = [loadingArr1 objectAtIndex:1];
             NSArray *loadingArr2 = [loadingStr1 componentsSeparatedByString:@"&"];
             NSString *loadingMsg = [loadingArr2 objectAtIndex:0];
+            
+            NSArray *loadingArr3 = [fURL componentsSeparatedByString:@"return="];
+            NSString *loadingStr3 = [loadingArr3 objectAtIndex:1];
+            NSArray *loadingArr4 = [loadingStr3 componentsSeparatedByString:@"&"];
+            NSString *loadingReturn = [loadingArr4 objectAtIndex:0];
+            
             if([loadingMsg isEqualToString:@"true"]){
                  [defaults setObject:@"true" forKey:LOADINGBAR_TIME];
             }else{
                  [defaults setObject:@"false" forKey:LOADINGBAR_TIME];
             }
+            
+            NSString *javaValue = [NSString stringWithFormat:@"javascript:%@('%@')", loadingReturn, loadingMsg];
+            [mainWebView stringByEvaluatingJavaScriptFromString:javaValue];
             
         // 토스트 메세지
         }else if([fURL hasPrefix:@"js2ios://showToast?"]){
