@@ -17,6 +17,7 @@
 #import "KeychainItemWrapper.h"
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <KakaoLink/KakaoLink.h>
+#import <AddressBook/AddressBook.h>
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -79,6 +80,7 @@
         mainWebView.scalesPageToFit = YES;
         [self.view addSubview:mainWebView];
         
+        // 주소변환
         CLLocationManager *locationManager = [[CLLocationManager alloc] init];
         [locationManager startUpdatingLocation];
         [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
@@ -87,19 +89,32 @@
         CLLocation* location = [locationManager location];
         CLLocationCoordinate2D coordinate = [location coordinate];
         
-        
-
-        
-        
-        
-        NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , @"주소" , [self getUUID] , @""];
-        
-        NSString *encodedString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSURL *weburl = [NSURL URLWithString:encodedString];
-        NSLog(@"url :: %@" , urlString);
-        NSURL *url = weburl;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        [mainWebView loadRequest:request];
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+            if (error) {
+                NSLog(@"Failed to reverse-geocode: %@", [error localizedDescription]);
+                return;
+            }
+            
+            NSString *addressValue;
+            
+            for(CLPlacemark *placemark in placemarks){
+                NSString *country = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey];
+                NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+                NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+                NSString *street = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStreetKey];
+                
+                addressValue = [NSString stringWithFormat:@"%@ %@ %@ %@", country, state, city, street];
+            }
+            
+            NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , @"주소" , [self getUUID] , addressValue];
+            
+            NSString *encodedString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *weburl = [NSURL URLWithString:encodedString];
+            NSURL *url = weburl;
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+            [mainWebView loadRequest:request];
+        }];
         
         // 버튼 뷰
         buttonView = [[UIView alloc] init];
@@ -550,8 +565,8 @@
                  [feedTemplateBuilder addButton:[KLKButtonObject buttonObjectWithBuilderBlock:^(KLKButtonBuilder * _Nonnull buttonBuilder) {
                      buttonBuilder.title = @"앱으로 이동";
                      buttonBuilder.link = [KLKLinkObject linkObjectWithBuilderBlock:^(KLKLinkBuilder * _Nonnull linkBuilder) {
-                         linkBuilder.iosExecutionParams = [NSString stringWithFormat:@"param:%@", returnValue];
-                         linkBuilder.androidExecutionParams = [NSString stringWithFormat:@"param:%@", returnValue];
+                         linkBuilder.iosExecutionParams = [NSString stringWithFormat:@"key=%@&return=%@", urlValue, returnValue];
+                         linkBuilder.androidExecutionParams = [NSString stringWithFormat:@"key=%@&return=%@", urlValue, returnValue];
                      }];
                  }]];
             }];
@@ -604,6 +619,24 @@
             }
             
             [defaults setObject:@"FALSE" forKey:SLIDE_MOVE];
+            
+        // 위도, 경도 넘기기
+        }else if([fURL hasPrefix:@"js2ios://setPageNum?"]){
+            NSArray *locationArr1 = [fURL componentsSeparatedByString:@"return="];
+            NSString *locationStr1 = [locationArr1 objectAtIndex:1];
+            NSArray *locationArr2 = [locationStr1 componentsSeparatedByString:@"&"];
+            NSString *locationValue = [locationArr2 objectAtIndex:0];
+            
+            CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+            [locationManager startUpdatingLocation];
+            [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+            [locationManager setDelegate:self];
+            
+            CLLocation* location = [locationManager location];
+            CLLocationCoordinate2D coordinate = [location coordinate];
+            
+            NSString *javaValue = [NSString stringWithFormat:@"javascript:%@('%f','%f','%@','')", locationValue, coordinate.latitude, coordinate.longitude, [self getUUID]];
+            [mainWebView stringByEvaluatingJavaScriptFromString:javaValue];
         }
     
         return NO;
