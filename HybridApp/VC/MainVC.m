@@ -78,8 +78,7 @@
         mainWebView.delegate = self;
         mainWebView.scalesPageToFit = YES;
         [self.view addSubview:mainWebView];
-        FirstUrl = homeURL + "?a=" + dataSet.latitude + "&b=" + dataSet.longitude + "&c=" + dataSet.address + "&d=" + dataSet.PHONE_ID+"&e="+key;
-
+        
         CLLocationManager *locationManager = [[CLLocationManager alloc] init];
         [locationManager startUpdatingLocation];
         [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
@@ -88,13 +87,13 @@
         CLLocation* location = [locationManager location];
         CLLocationCoordinate2D coordinate = [location coordinate];
         
-        NSString *alertMsg = [NSString stringWithFormat:@"위도 : %f\n경도 : %f", coordinate.latitude, coordinate.longitude];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:alertMsg delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
-        [alertView show];
+        
 
         
         
         NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , @"주소" , [self getUUID] , @""];
+        
+        NSLog(@"url :: %@" , urlString);
         NSURL *url = [NSURL URLWithString:urlString];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         [mainWebView loadRequest:request];
