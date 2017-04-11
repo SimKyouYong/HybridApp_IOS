@@ -361,7 +361,7 @@
     fURL = [NSString stringWithFormat:@"%@", request.URL];
     fURL = [self decodeStr:fURL];
     NSLog(@"fURL : %@", fURL);
-    
+
     if ([[[request URL] absoluteString] hasPrefix:@"js2ios:"]){
         
         // 로딩바 보이기 숨기기
