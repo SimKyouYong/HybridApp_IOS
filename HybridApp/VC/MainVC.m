@@ -91,10 +91,13 @@
 
         
         
+        
         NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , @"주소" , [self getUUID] , @""];
         
+        NSString *encodedString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *weburl = [NSURL URLWithString:encodedString];
         NSLog(@"url :: %@" , urlString);
-        NSURL *url = [NSURL URLWithString:urlString];
+        NSURL *url = weburl;
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         [mainWebView loadRequest:request];
         
