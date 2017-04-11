@@ -36,6 +36,7 @@
 		FF93753B1E65EF9F00462818 /* DrawerNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375371E65EF9F00462818 /* DrawerNavigation.m */; };
 		FF93753C1E65EF9F00462818 /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9375391E65EF9F00462818 /* DrawerView.m */; };
 		FF93753D1E65EF9F00462818 /* DrawerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF93753A1E65EF9F00462818 /* DrawerView.xib */; };
+		FFAF68711E9D061600BDDFD0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = FFAF68701E9D061600BDDFD0 /* back.png */; };
 		FFD798B21E9BBC96007176A5 /* menu_btn_01.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */; };
 		FFD798B31E9BBC96007176A5 /* menu_btn_02.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */; };
 		FFD798B41E9BBC96007176A5 /* menu_btn_03.png in Resources */ = {isa = PBXBuildFile; fileRef = FFD798AF1E9BBC96007176A5 /* menu_btn_03.png */; };
@@ -89,6 +90,7 @@
 		FF9375381E65EF9F00462818 /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
 		FF9375391E65EF9F00462818 /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
 		FF93753A1E65EF9F00462818 /* DrawerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerView.xib; sourceTree = "<group>"; };
+		FFAF68701E9D061600BDDFD0 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_01.png; sourceTree = "<group>"; };
 		FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_02.png; sourceTree = "<group>"; };
 		FFD798AF1E9BBC96007176A5 /* menu_btn_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_btn_03.png; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 		FF93752E1E65EF9500462818 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FFAF68701E9D061600BDDFD0 /* back.png */,
 				FFD798B71E9BBCC7007176A5 /* menu_new.png */,
 				FFD798AD1E9BBC96007176A5 /* menu_btn_01.png */,
 				FFD798AE1E9BBC96007176A5 /* menu_btn_02.png */,
@@ -344,6 +347,7 @@
 			files = (
 				FF9375341E65EF9500462818 /* main_top_menu_on.png in Resources */,
 				FF7BFA521E8E9AC300168D68 /* tab_prev.png in Resources */,
+				FFAF68711E9D061600BDDFD0 /* back.png in Resources */,
 				FFD798B41E9BBC96007176A5 /* menu_btn_03.png in Resources */,
 				FFD798B21E9BBC96007176A5 /* menu_btn_01.png in Resources */,
 				FF7BFA531E8E9AC300168D68 /* tab_reload.png in Resources */,

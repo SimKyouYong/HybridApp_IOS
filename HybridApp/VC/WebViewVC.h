@@ -17,6 +17,10 @@
     
     UIView *buttonView;
     UIView *webviewBottomView;
+    
+    NSString *splitValue;
+    
+    UIButton *rightButton;
 }
 
 @property (nonatomic) NSString *urlString;

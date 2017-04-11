@@ -13,6 +13,8 @@
         <scene sceneID="ARM-AK-SVy">
             <objects>
                 <navigationController navigationBarHidden="YES" id="8Aa-SA-i27" customClass="DrawerNavigation" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sjY-oM-o56">
@@ -82,13 +84,13 @@
                                             <action selector="menuButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="TeE-Iz-Pa4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUi-Df-UEj">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUi-Df-UEj">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="3Do-KM-76C"/>
                                             <constraint firstAttribute="width" constant="70" id="Tic-Wd-HIm"/>
                                         </constraints>
-                                        <state key="normal" title="Back"/>
+                                        <state key="normal" image="back.png"/>
                                         <connections>
                                             <action selector="backButton:" destination="ere-Q0-MyA" eventType="touchUpInside" id="11t-97-qMN"/>
                                         </connections>
@@ -115,6 +117,7 @@
                             <constraint firstAttribute="trailing" secondItem="dfo-dN-Krp" secondAttribute="trailing" id="o0Y-vN-Z6r"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
@@ -130,6 +133,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back.png" width="65" height="65"/>
         <image name="main_top_menu_off.png" width="45" height="30"/>
     </resources>
 </document>

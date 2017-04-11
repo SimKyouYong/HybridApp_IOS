@@ -50,10 +50,10 @@
     
     titleText.text = titleString;
     if([buttonString isEqualToString:@"undefined"]){
-        buttonString = @"저장하기";
+        buttonString = @"저장";
     }
     
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [rightButton setTitle:buttonString forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     rightButton.frame = CGRectMake(WIDTH_FRAME - 100, 0, 100, 50);
@@ -67,7 +67,6 @@
     [self.view addSubview:secondWebView];
     
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"%@", url);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
     
@@ -125,32 +124,47 @@
     [button5.layer setBorderWidth:0.5f];
     [buttonView addSubview:button5];
     
+    UIImageView *backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
+    backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
+    [webviewBottomView addSubview:backImage];
+    
+    UIImageView *fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_next"]];
+    fowardImage.frame = CGRectMake((WIDTH_FRAME/5) + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:fowardImage];
+    
+    UIImageView *homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_home"]];
+    homeImage.frame = CGRectMake((WIDTH_FRAME/5)*2 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:homeImage];
+    
+    UIImageView *reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_reload"]];
+    reloadImage.frame = CGRectMake((WIDTH_FRAME/5)*3 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:reloadImage];
+    
+    UIImageView *shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share"]];
+    shareImage.frame = CGRectMake((WIDTH_FRAME/5)*4 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:shareImage];
+    
     UIButton *pervButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [pervButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
     pervButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
     [backButton addTarget:self action:@selector(prevButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:pervButton];
     
     UIButton *fowardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [fowardButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
     fowardButton.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
     [fowardButton addTarget:self action:@selector(fowardButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:fowardButton];
     
     UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [homeButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
     homeButton.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
     [homeButton addTarget:self action:@selector(homeButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:homeButton];
     
     UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [reloadButton setImage:[UIImage imageNamed:@"tab_reload"] forState:UIControlStateNormal];
     reloadButton.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
     [reloadButton addTarget:self action:@selector(reloadButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:reloadButton];
     
     UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton setImage:[UIImage imageNamed:@"tab_share"] forState:UIControlStateNormal];
     shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
     [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
     [webviewBottomView addSubview:shareButton];
@@ -231,6 +245,19 @@
         }
         
         return NO;
+    
+    }else if ([[[request URL] absoluteString] hasPrefix:@"hybridapi:"]){
+        // 우측 버튼 처리
+        if([fURL hasPrefix:@"js2ios://setRightButton?"]){
+            NSArray *rightArr = [fURL componentsSeparatedByString:@"?"];
+            NSString *rightValue = [rightArr objectAtIndex:1];
+            
+            NSArray *splitArr = [rightValue componentsSeparatedByString:@","];
+            [rightButton setTitle:[splitArr objectAtIndex:0] forState:UIControlStateNormal];
+            splitValue = [splitArr objectAtIndex:1];
+        }
+        
+        return NO;
     }
     
     return YES;
@@ -286,38 +313,44 @@
 }
 
 - (void)rightAction:(UIButton*)sender{
-    
+    if (splitValue.length == 0 || [splitValue isEqualToString:@"null"]){
+        [secondWebView stringByEvaluatingJavaScriptFromString:@"javascript:getRightButton()"];
+    }else{
+        NSURL *url = [NSURL URLWithString:splitValue];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [secondWebView loadRequest:request];
+    }
 }
 
 #pragma mark -
 #pragma mark Button View
 
 - (void)button1Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.naver.com"];
+    NSURL *url = [NSURL URLWithString:@"https://m.naver.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
 }
 
 - (void)button2Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.daum.net"];
+    NSURL *url = [NSURL URLWithString:@"http://m.daum.net"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
 }
 
 - (void)button3Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.google.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.google.co.kr"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
 }
 
 - (void)button4Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.yahoo.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.yahoo.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
 }
 
 - (void)button5Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.11st.co.kr"];
+    NSURL *url = [NSURL URLWithString:@"http://m.11st.co.kr/MW/html/main.html"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [secondWebView loadRequest:request];
 }

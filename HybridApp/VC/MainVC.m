@@ -54,22 +54,22 @@
         [self.rootNav pushViewController:_webViewVC animated:NO];
     }else{
         // 로딩관련
-        loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 170)/2, (self.view.frame.size.height - 170)/2, 170, 170)];
-        loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 300)/2, (self.view.frame.size.height - 100)/2, 300, 100)];
+        loadingView.backgroundColor = [UIColor whiteColor];
         loadingView.clipsToBounds = YES;
         loadingView.layer.cornerRadius = 10.0;
         
-        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        activityView.frame = CGRectMake(65, 40, activityView.bounds.size.width, activityView.bounds.size.height);
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.frame = CGRectMake(30, 40, activityView.bounds.size.width, activityView.bounds.size.height);
         [loadingView addSubview:activityView];
         
-        loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 115, 130, 42)];
+        loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 200, 100)];
         loadingLabel.backgroundColor = [UIColor clearColor];
         loadingLabel.numberOfLines = 2;
-        loadingLabel.textColor = [UIColor whiteColor];
+        loadingLabel.textColor = [UIColor blackColor];
         loadingLabel.adjustsFontSizeToFitWidth = YES;
-        loadingLabel.textAlignment = NSTextAlignmentCenter;
-        loadingLabel.text = [NSString stringWithFormat:@"로딩중..."];
+        loadingLabel.textAlignment = NSTextAlignmentLeft;
+        loadingLabel.text = [NSString stringWithFormat:@"로딩중입니다."];
         [loadingView addSubview:loadingLabel];
         [self.view addSubview:loadingView];
         loadingView.hidden = YES;
@@ -170,32 +170,47 @@
         [button5.layer setBorderWidth:0.5f];
         [buttonView addSubview:button5];
         
+        UIImageView *backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
+        backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
+        [webviewBottomView addSubview:backImage];
+        
+        UIImageView *fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_next"]];
+        fowardImage.frame = CGRectMake((WIDTH_FRAME/5) + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+        [webviewBottomView addSubview:fowardImage];
+        
+        UIImageView *homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_home"]];
+        homeImage.frame = CGRectMake((WIDTH_FRAME/5)*2 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+        [webviewBottomView addSubview:homeImage];
+        
+        UIImageView *reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_reload"]];
+        reloadImage.frame = CGRectMake((WIDTH_FRAME/5)*3 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+        [webviewBottomView addSubview:reloadImage];
+        
+        UIImageView *shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share"]];
+        shareImage.frame = CGRectMake((WIDTH_FRAME/5)*4 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+        [webviewBottomView addSubview:shareImage];
+        
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backButton setImage:[UIImage imageNamed:@"tab_prev"] forState:UIControlStateNormal];
         backButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
         [backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
         [webviewBottomView addSubview:backButton];
         
         UIButton *fowardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [fowardButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
         fowardButton.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
         [fowardButton addTarget:self action:@selector(fowardButton:) forControlEvents:UIControlEventTouchUpInside];
         [webviewBottomView addSubview:fowardButton];
         
         UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [homeButton setImage:[UIImage imageNamed:@"tab_home"] forState:UIControlStateNormal];
         homeButton.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
         [homeButton addTarget:self action:@selector(homeButton:) forControlEvents:UIControlEventTouchUpInside];
         [webviewBottomView addSubview:homeButton];
         
         UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [reloadButton setImage:[UIImage imageNamed:@"tab_reload"] forState:UIControlStateNormal];
         reloadButton.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
         [reloadButton addTarget:self action:@selector(reloadButton:) forControlEvents:UIControlEventTouchUpInside];
         [webviewBottomView addSubview:reloadButton];
         
         UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [shareButton setImage:[UIImage imageNamed:@"tab_share"] forState:UIControlStateNormal];
         shareButton.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
         [shareButton addTarget:self action:@selector(shareButton:) forControlEvents:UIControlEventTouchUpInside];
         [webviewBottomView addSubview:shareButton];
@@ -243,12 +258,18 @@
            webviewBottomView.hidden = YES;
        }
     }
+    
+    popupViewWhite = [[UIView alloc] init];
+    popupViewWhite.frame = CGRectMake(0, 0, mainWebView.frame.size.width, mainWebView.frame.size.height);
+    popupViewWhite.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:popupViewWhite];
+    popupViewWhite.hidden = YES;
 }
 
 - (void)viewBottomButtonBgInit{
     NSString *bgColor = [defaults stringForKey:BOTTOM_BUTTON_COLOR];
     if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
-        buttonView.backgroundColor = [UIColor whiteColor];
+        buttonView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     }else{
         bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         buttonView.backgroundColor = [self colorWithHexString:bgColor];
@@ -258,7 +279,7 @@
 - (void)viewBottomWebviewBgInit{
     NSString *bgColor = [defaults stringForKey:BOTTOM_WEBVIEW_COLOR];
     if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
-        webviewBottomView.backgroundColor = [UIColor whiteColor];
+        webviewBottomView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     }else{
         bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         webviewBottomView.backgroundColor = [self colorWithHexString:bgColor];
@@ -269,31 +290,31 @@
 #pragma mark Button View
 
 - (void)button1Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.naver.com"];
+    NSURL *url = [NSURL URLWithString:@"https://m.naver.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
 
 - (void)button2Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.daum.net"];
+    NSURL *url = [NSURL URLWithString:@"http://m.daum.net"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
 
 - (void)button3Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.google.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.google.co.kr"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
 
 - (void)button4Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.yahoo.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.yahoo.com"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
 
 - (void)button5Action:(UIButton*)sender{
-    NSURL *url = [NSURL URLWithString:@"http://www.11st.co.kr"];
+    NSURL *url = [NSURL URLWithString:@"http://m.11st.co.kr/MW/html/main.html"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [mainWebView loadRequest:request];
 }
@@ -354,6 +375,7 @@
             }else{
                 [defaults setObject:@"false" forKey:LOADINGBAR_HIDDEN];
             }
+            [defaults setObject:@"false" forKey:LOADINGBAR_TIME];
             
         // 로딩바 3초 딜레이 완료후
         }else if([fURL hasPrefix:@"js2ios://ProgressBar3?"]){
@@ -767,6 +789,7 @@
 
 - (void)loadingStart{
     popupView.hidden = NO;
+    popupViewWhite.hidden = YES;
     
     if([[defaults stringForKey:LOADINGBAR_HIDDEN] isEqualToString:@"true"] || [defaults stringForKey:LOADINGBAR_HIDDEN].length == 0){
         loadingView.hidden = NO;
@@ -775,15 +798,29 @@
        
     }
     
-    if([[defaults stringForKey:LOADINGBAR_HIDDEN] isEqualToString:@"true"]){
-        [self performSelector:@selector(loadingEnd) withObject:nil afterDelay:3.0];
+    if([[defaults stringForKey:LOADINGBAR_TIME] isEqualToString:@"true"]){
+        popupView.hidden = YES;
+        popupViewWhite.hidden = NO;
+        [self performSelector:@selector(loadingThreeEnd) withObject:nil afterDelay:3.0];
+        loadingView.hidden = NO;
+        [activityView startAnimating];
     }
 }
 
 - (void)loadingEnd{
+    if([[defaults stringForKey:LOADINGBAR_TIME] isEqualToString:@"true"]){
+        
+    }else{
+        loadingView.hidden = YES;
+        [activityView stopAnimating];
+        popupView.hidden = YES;
+    }
+}
+
+- (void)loadingThreeEnd{
     loadingView.hidden = YES;
     [activityView stopAnimating];
-    popupView.hidden = YES;
+    popupViewWhite.hidden = YES;
 }
 
 #pragma mark -

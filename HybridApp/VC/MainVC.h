@@ -20,6 +20,7 @@
     UILabel *loadingLabel;
     
     PopupView *popupView;
+    UIView *popupViewWhite;
     
     UIWebView *mainWebView;
     
