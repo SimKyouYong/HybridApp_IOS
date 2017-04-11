@@ -940,6 +940,41 @@
 - (void)token:(NSNotification *)noti{
     NSString *jsValue = [NSString stringWithFormat:@"javascript:hybrid_init('%@','%@')", [defaults stringForKey:TOKEN_KEY], @"true"];
     [mainWebView stringByEvaluatingJavaScriptFromString:jsValue];
+    
+    // 주소변환
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    [locationManager startUpdatingLocation];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+    [locationManager setDelegate:self];
+    
+    CLLocation* location = [locationManager location];
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error) {
+            NSLog(@"Failed to reverse-geocode: %@", [error localizedDescription]);
+            return;
+        }
+        
+        NSString *addressValue;
+        
+        for(CLPlacemark *placemark in placemarks){
+            NSString *country = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCountryKey];
+            NSString *state = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStateKey];
+            NSString *city = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressCityKey];
+            NSString *street = [placemark.addressDictionary objectForKey:(NSString*)kABPersonAddressStreetKey];
+            
+            addressValue = [NSString stringWithFormat:@"%@ %@ %@ %@", country, state, city, street];
+        }
+        
+        NSString *urlString = [NSString stringWithFormat:@"http://emview.godohosting.com/api_help.php?a=%f&b=%f&c=%@&d=%@&e=%@" , coordinate.latitude , coordinate.longitude , addressValue , [self getUUID] , @""];
+        NSString *encodedString=[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *weburl = [NSURL URLWithString:encodedString];
+        NSURL *url = weburl;
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [mainWebView loadRequest:request];
+    }];
 }
 
 @end
