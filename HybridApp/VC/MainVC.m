@@ -53,27 +53,6 @@
         
         [self.rootNav pushViewController:_webViewVC animated:NO];
     }else{
-        // 로딩관련
-        loadingView = [[UIView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 300)/2, (self.view.frame.size.height - 100)/2, 300, 100)];
-        loadingView.backgroundColor = [UIColor whiteColor];
-        loadingView.clipsToBounds = YES;
-        loadingView.layer.cornerRadius = 10.0;
-        
-        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityView.frame = CGRectMake(30, 40, activityView.bounds.size.width, activityView.bounds.size.height);
-        [loadingView addSubview:activityView];
-        
-        loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, 200, 100)];
-        loadingLabel.backgroundColor = [UIColor clearColor];
-        loadingLabel.numberOfLines = 2;
-        loadingLabel.textColor = [UIColor blackColor];
-        loadingLabel.adjustsFontSizeToFitWidth = YES;
-        loadingLabel.textAlignment = NSTextAlignmentLeft;
-        loadingLabel.text = [NSString stringWithFormat:@"로딩중입니다."];
-        [loadingView addSubview:loadingLabel];
-        [self.view addSubview:loadingView];
-        loadingView.hidden = YES;
-        
         // 웹뷰
         mainWebView = [[UIWebView alloc] init];
         mainWebView.delegate = self;
@@ -218,7 +197,11 @@
         [self.view addSubview:popupView];
         popupView.hidden = YES;
         
-        [self.view bringSubviewToFront:loadingView];
+        // 로딩관련
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.frame = CGRectMake(self.view.frame.size.width/2 - activityView.bounds.size.width/2, self.view.frame.size.height/2 - activityView.bounds.size.height/2, activityView.bounds.size.width, activityView.bounds.size.height);
+        [self.view addSubview:activityView];
+        [self.view bringSubviewToFront:activityView];
     }
     
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
@@ -261,6 +244,7 @@
     popupViewWhite = [[UIView alloc] init];
     popupViewWhite.frame = CGRectMake(0, 0, mainWebView.frame.size.width, mainWebView.frame.size.height);
     popupViewWhite.backgroundColor = [UIColor whiteColor];
+    //popupViewWhite.alpha = 0.8;
     [self.view addSubview:popupViewWhite];
     popupViewWhite.hidden = YES;
 }
@@ -812,7 +796,6 @@
     popupViewWhite.hidden = YES;
     
     if([[defaults stringForKey:LOADINGBAR_HIDDEN] isEqualToString:@"true"] || [defaults stringForKey:LOADINGBAR_HIDDEN].length == 0){
-        loadingView.hidden = NO;
         [activityView startAnimating];
     }else{
        
@@ -822,7 +805,8 @@
         popupView.hidden = YES;
         popupViewWhite.hidden = NO;
         [self performSelector:@selector(loadingThreeEnd) withObject:nil afterDelay:3.0];
-        loadingView.hidden = NO;
+        [self.view bringSubviewToFront:popupViewWhite];
+        [self.view bringSubviewToFront:activityView];
         [activityView startAnimating];
     }
 }
@@ -831,14 +815,12 @@
     if([[defaults stringForKey:LOADINGBAR_TIME] isEqualToString:@"true"]){
         
     }else{
-        loadingView.hidden = YES;
         [activityView stopAnimating];
         popupView.hidden = YES;
     }
 }
 
 - (void)loadingThreeEnd{
-    loadingView.hidden = YES;
     [activityView stopAnimating];
     popupViewWhite.hidden = YES;
 }

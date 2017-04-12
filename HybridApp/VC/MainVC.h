@@ -16,8 +16,6 @@
     NSString *fURL;
     
     UIActivityIndicatorView *activityView;
-    UIView *loadingView;
-    UILabel *loadingLabel;
     
     PopupView *popupView;
     UIView *popupViewWhite;
