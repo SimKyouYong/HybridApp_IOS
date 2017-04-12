@@ -198,7 +198,7 @@
         popupView.hidden = YES;
         
         // 로딩관련
-        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         activityView.frame = CGRectMake(self.view.frame.size.width/2 - activityView.bounds.size.width/2, self.view.frame.size.height/2 - activityView.bounds.size.height/2, activityView.bounds.size.width, activityView.bounds.size.height);
         [self.view addSubview:activityView];
         [self.view bringSubviewToFront:activityView];
@@ -669,6 +669,9 @@
         if([fURL hasPrefix:@"hybridapi://new_setBottomMenuStyle?"]){
             NSArray *bgArr = [fURL componentsSeparatedByString:@"?"];
             NSString *bgStr = [bgArr objectAtIndex:1];
+            if([bgStr isEqualToString:@"default"]){
+                bgStr = @"ff5858";
+            }
             [defaults setObject:bgStr forKey:BOTTOM_BUTTON_COLOR];
             
             [self viewBottomButtonBgInit];
