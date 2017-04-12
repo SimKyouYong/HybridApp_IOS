@@ -750,7 +750,10 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"네트워크에 접속할 수 없습니다." delegate:self cancelButtonTitle:@"확인" otherButtonTitles:nil];
             [alertView show];
         }else{
-            [self loadingStart];
+            if([fURL isEqualToString:@"about:blank"] || [fURL isEqualToString:@"https://m.search.naver.com/remote_frame"]){
+            }else{
+                [self loadingStart];
+            }
         }
     }
 }
