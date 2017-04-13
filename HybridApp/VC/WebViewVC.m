@@ -124,6 +124,10 @@
     [button5.layer setBorderWidth:0.5f];
     [buttonView addSubview:button5];
     
+    UIView *centerLine = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_FRAME - 51, WIDTH_FRAME, 2)];
+    centerLine.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    [self.view addSubview:centerLine];
+    
     backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
     backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
     [webviewBottomView addSubview:backImage];
