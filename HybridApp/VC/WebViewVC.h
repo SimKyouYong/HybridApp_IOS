@@ -21,6 +21,12 @@
     NSString *splitValue;
     
     UIButton *rightButton;
+    
+    UIImageView *backImage;
+    UIImageView *fowardImage;
+    UIImageView *homeImage;
+    UIImageView *reloadImage;
+    UIImageView *shareImage;
 }
 
 @property (nonatomic) NSString *urlString;

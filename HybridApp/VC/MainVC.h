@@ -26,6 +26,12 @@
     UIView *webviewBottomView;
     
     NSString *urlValue;
+    
+    UIImageView *backImage;
+    UIImageView *fowardImage;
+    UIImageView *homeImage;
+    UIImageView *reloadImage;
+    UIImageView *shareImage;
 }
 
 @property (nonatomic, strong) CLLocationManager *locationManager;

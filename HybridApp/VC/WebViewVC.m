@@ -124,23 +124,23 @@
     [button5.layer setBorderWidth:0.5f];
     [buttonView addSubview:button5];
     
-    UIImageView *backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
+    backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
     backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
     [webviewBottomView addSubview:backImage];
     
-    UIImageView *fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_next"]];
+    fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_next"]];
     fowardImage.frame = CGRectMake((WIDTH_FRAME/5) + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
     [webviewBottomView addSubview:fowardImage];
     
-    UIImageView *homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_home"]];
+    homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_home"]];
     homeImage.frame = CGRectMake((WIDTH_FRAME/5)*2 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
     [webviewBottomView addSubview:homeImage];
     
-    UIImageView *reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_reload"]];
+    reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_reload"]];
     reloadImage.frame = CGRectMake((WIDTH_FRAME/5)*3 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
     [webviewBottomView addSubview:reloadImage];
     
-    UIImageView *shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share"]];
+    shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share"]];
     shareImage.frame = CGRectMake((WIDTH_FRAME/5)*4 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
     [webviewBottomView addSubview:shareImage];
     
@@ -200,7 +200,7 @@
 - (void)viewBottomButtonBgInit{
     NSString *bgColor = [defaults stringForKey:BOTTOM_BUTTON_COLOR];
     if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
-        buttonView.backgroundColor = [UIColor whiteColor];
+        buttonView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     }else{
         bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         buttonView.backgroundColor = [self colorWithHexString:bgColor];
@@ -208,11 +208,24 @@
 }
 
 - (void)viewBottomWebviewBgInit{
+    backImage.image = [UIImage imageNamed:@"tab_prev"];
+    fowardImage.image = [UIImage imageNamed:@"tab_next"];
+    homeImage.image = [UIImage imageNamed:@"tab_home"];
+    reloadImage.image = [UIImage imageNamed:@"tab_reload"];
+    shareImage.image = [UIImage imageNamed:@"tab_share"];
+    
     NSString *bgColor = [defaults stringForKey:BOTTOM_WEBVIEW_COLOR];
     if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
-        webviewBottomView.backgroundColor = [UIColor whiteColor];
+        webviewBottomView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
     }else{
         bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        if([bgColor isEqualToString:@"32353c"]){
+            backImage.image = [UIImage imageNamed:@"tab_prev_w"];
+            fowardImage.image = [UIImage imageNamed:@"tab_next_w"];
+            homeImage.image = [UIImage imageNamed:@"tab_home_w"];
+            reloadImage.image = [UIImage imageNamed:@"tab_reload_w"];
+            shareImage.image = [UIImage imageNamed:@"tab_share_w"];
+        }
         webviewBottomView.backgroundColor = [self colorWithHexString:bgColor];
     }
 }
