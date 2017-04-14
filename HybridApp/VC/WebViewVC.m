@@ -91,7 +91,7 @@
     [button1 addTarget:self action:@selector(button1Action:) forControlEvents:UIControlEventTouchUpInside];
     [buttonView addSubview:button1];
     
-    UIView *heightLine1 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_FRAME/5 - 1, 0, 2, 50)];
+    UIView *heightLine1 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_FRAME/5 - 0.5, 0, 1, 50)];
     heightLine1.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [buttonView addSubview:heightLine1];
     
@@ -102,7 +102,7 @@
     [button2 addTarget:self action:@selector(button2Action:) forControlEvents:UIControlEventTouchUpInside];
     [buttonView addSubview:button2];
     
-    UIView *heightLine2 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*2 - 1, 0, 2, 50)];
+    UIView *heightLine2 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*2 - 0.5, 0, 1, 50)];
     heightLine2.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [buttonView addSubview:heightLine2];
     
@@ -113,7 +113,7 @@
     [button3 addTarget:self action:@selector(button3Action:) forControlEvents:UIControlEventTouchUpInside];
     [buttonView addSubview:button3];
     
-    UIView *heightLine3 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*3 - 1, 0, 2, 50)];
+    UIView *heightLine3 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*3 - 0.5, 0, 1, 50)];
     heightLine3.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [buttonView addSubview:heightLine3];
     
@@ -124,7 +124,7 @@
     [button4 addTarget:self action:@selector(button4Action:) forControlEvents:UIControlEventTouchUpInside];
     [buttonView addSubview:button4];
     
-    UIView *heightLine4 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*4 - 1, 0, 2, 50)];
+    UIView *heightLine4 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*4 - 0.5, 0, 1, 50)];
     heightLine4.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [buttonView addSubview:heightLine4];
     
@@ -135,11 +135,9 @@
     [button5 addTarget:self action:@selector(button5Action:) forControlEvents:UIControlEventTouchUpInside];
     [buttonView addSubview:button5];
     
-    UIView *centerLine = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_FRAME - 51, WIDTH_FRAME, 2)];
+    UIView *centerLine = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_FRAME - 50.5, WIDTH_FRAME, 1)];
     centerLine.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [self.view addSubview:centerLine];
-    
-    
     
     UIButton *pervButton = [UIButton buttonWithType:UIButtonTypeCustom];
     pervButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
