@@ -89,64 +89,57 @@
     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button1.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
     [button1 addTarget:self action:@selector(button1Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button1.layer setBorderWidth:0.5f];
     [buttonView addSubview:button1];
+    
+    UIView *heightLine1 = [[UIView alloc] initWithFrame:CGRectMake(WIDTH_FRAME/5 - 1, 0, 2, 50)];
+    heightLine1.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    [buttonView addSubview:heightLine1];
     
     UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
     [button2 setTitle:@"버튼2" forState:UIControlStateNormal];
     [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button2.frame = CGRectMake(WIDTH_FRAME/5, 0, WIDTH_FRAME/5, 50);
     [button2 addTarget:self action:@selector(button2Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button2.layer setBorderWidth:0.5f];
     [buttonView addSubview:button2];
+    
+    UIView *heightLine2 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*2 - 1, 0, 2, 50)];
+    heightLine2.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    [buttonView addSubview:heightLine2];
     
     UIButton *button3 = [UIButton buttonWithType:UIButtonTypeSystem];
     [button3 setTitle:@"버튼3" forState:UIControlStateNormal];
     [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button3.frame = CGRectMake((WIDTH_FRAME/5)*2, 0, WIDTH_FRAME/5, 50);
     [button3 addTarget:self action:@selector(button3Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button3.layer setBorderWidth:0.5f];
     [buttonView addSubview:button3];
+    
+    UIView *heightLine3 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*3 - 1, 0, 2, 50)];
+    heightLine3.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    [buttonView addSubview:heightLine3];
     
     UIButton *button4 = [UIButton buttonWithType:UIButtonTypeSystem];
     [button4 setTitle:@"버튼4" forState:UIControlStateNormal];
     [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button4.frame = CGRectMake((WIDTH_FRAME/5)*3, 0, WIDTH_FRAME/5, 50);
     [button4 addTarget:self action:@selector(button4Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button4.layer setBorderWidth:0.5f];
     [buttonView addSubview:button4];
+    
+    UIView *heightLine4 = [[UIView alloc] initWithFrame:CGRectMake((WIDTH_FRAME/5)*4 - 1, 0, 2, 50)];
+    heightLine4.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
+    [buttonView addSubview:heightLine4];
     
     UIButton *button5 = [UIButton buttonWithType:UIButtonTypeSystem];
     [button5 setTitle:@"버튼5" forState:UIControlStateNormal];
     [button5 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button5.frame = CGRectMake((WIDTH_FRAME/5)*4, 0, WIDTH_FRAME/5, 50);
     [button5 addTarget:self action:@selector(button5Action:) forControlEvents:UIControlEventTouchUpInside];
-    [button5.layer setBorderWidth:0.5f];
     [buttonView addSubview:button5];
     
     UIView *centerLine = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT_FRAME - 51, WIDTH_FRAME, 2)];
     centerLine.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
     [self.view addSubview:centerLine];
     
-    backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_prev"]];
-    backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
-    [webviewBottomView addSubview:backImage];
     
-    fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_next"]];
-    fowardImage.frame = CGRectMake((WIDTH_FRAME/5) + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
-    [webviewBottomView addSubview:fowardImage];
-    
-    homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_home"]];
-    homeImage.frame = CGRectMake((WIDTH_FRAME/5)*2 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
-    [webviewBottomView addSubview:homeImage];
-    
-    reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_reload"]];
-    reloadImage.frame = CGRectMake((WIDTH_FRAME/5)*3 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
-    [webviewBottomView addSubview:reloadImage];
-    
-    shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_share"]];
-    shareImage.frame = CGRectMake((WIDTH_FRAME/5)*4 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
-    [webviewBottomView addSubview:shareImage];
     
     UIButton *pervButton = [UIButton buttonWithType:UIButtonTypeCustom];
     pervButton.frame = CGRectMake(0, 0, WIDTH_FRAME/5, 50);
@@ -212,11 +205,11 @@
 }
 
 - (void)viewBottomWebviewBgInit{
-    backImage.image = [UIImage imageNamed:@"tab_prev"];
-    fowardImage.image = [UIImage imageNamed:@"tab_next"];
-    homeImage.image = [UIImage imageNamed:@"tab_home"];
-    reloadImage.image = [UIImage imageNamed:@"tab_reload"];
-    shareImage.image = [UIImage imageNamed:@"tab_share"];
+    NSString *prevImageValue = @"tab_prev";
+    NSString *nextImageValue = @"tab_next";
+    NSString *homeImageValue = @"tab_home";
+    NSString *reloadImageValue = @"tab_reload";
+    NSString *shareImageValue = @"tab_share";
     
     NSString *bgColor = [defaults stringForKey:BOTTOM_WEBVIEW_COLOR];
     if([bgColor isEqualToString:@"default"] || bgColor.length == 0){
@@ -224,14 +217,34 @@
     }else{
         bgColor = [bgColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
         if([bgColor isEqualToString:@"32353c"]){
-            backImage.image = [UIImage imageNamed:@"tab_prev_w"];
-            fowardImage.image = [UIImage imageNamed:@"tab_next_w"];
-            homeImage.image = [UIImage imageNamed:@"tab_home_w"];
-            reloadImage.image = [UIImage imageNamed:@"tab_reload_w"];
-            shareImage.image = [UIImage imageNamed:@"tab_share_w"];
+            prevImageValue = @"tab_prev_w";
+            nextImageValue = @"tab_next_w";
+            homeImageValue = @"tab_home_w";
+            reloadImageValue = @"tab_reload_w";
+            shareImageValue = @"tab_share_w";
         }
         webviewBottomView.backgroundColor = [self colorWithHexString:bgColor];
     }
+    
+    backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:prevImageValue]];
+    backImage.frame = CGRectMake((WIDTH_FRAME/5)/2 - 15, 10, 30, 30);
+    [webviewBottomView addSubview:backImage];
+    
+    fowardImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:nextImageValue]];
+    fowardImage.frame = CGRectMake((WIDTH_FRAME/5) + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:fowardImage];
+    
+    homeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:homeImageValue]];
+    homeImage.frame = CGRectMake((WIDTH_FRAME/5)*2 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:homeImage];
+    
+    reloadImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:reloadImageValue]];
+    reloadImage.frame = CGRectMake((WIDTH_FRAME/5)*3 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:reloadImage];
+    
+    shareImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:shareImageValue]];
+    shareImage.frame = CGRectMake((WIDTH_FRAME/5)*4 + ((WIDTH_FRAME/5)/2 - 15), 10, 30, 30);
+    [webviewBottomView addSubview:shareImage];
 }
 
 - (void)didReceiveMemoryWarning {
