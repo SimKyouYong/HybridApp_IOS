@@ -278,13 +278,19 @@
     
     }else if ([[[request URL] absoluteString] hasPrefix:@"hybridapi:"]){
         // 우측 버튼 처리
-        if([fURL hasPrefix:@"js2ios://setRightButton?"]){
+        if([fURL hasPrefix:@"hybridapi://setRightButton?"]){
             NSArray *rightArr = [fURL componentsSeparatedByString:@"?"];
             NSString *rightValue = [rightArr objectAtIndex:1];
             
             NSArray *splitArr = [rightValue componentsSeparatedByString:@","];
             [rightButton setTitle:[splitArr objectAtIndex:0] forState:UIControlStateNormal];
             splitValue = [splitArr objectAtIndex:1];
+        
+        // 뉴 이미지 제어
+        }else if([fURL hasPrefix:@"hybridapi://SETSLIDE?"]){
+            NSArray *splitArr1 = [fURL componentsSeparatedByString:@"?"];
+            MENU_IMAGE_SPLIT = [splitArr1 objectAtIndex:1];
+            NSLog(@"%@", MENU_IMAGE_SPLIT);
         }
         
         return NO;

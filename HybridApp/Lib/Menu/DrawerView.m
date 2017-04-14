@@ -50,7 +50,9 @@
     fourImage.hidden = YES;
     fiveImage.hidden = YES;
     
-    NSArray *splitArr = [MENU_IMAGE_SPLIT componentsSeparatedByString: @"/"];
+    MENU_IMAGE_SPLIT = [MENU_IMAGE_SPLIT stringByReplacingOccurrencesOfString:@"," withString:@"/"];
+    NSArray *splitArr = [MENU_IMAGE_SPLIT componentsSeparatedByString:@"/"];
+    NSLog(@"%@", splitArr);
     for (int i = 0; i < [splitArr count]; i++) {
         if([[splitArr objectAtIndex:i] isEqualToString:@"1"]){
             firstImage.hidden = NO;
