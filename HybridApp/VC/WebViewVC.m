@@ -40,6 +40,8 @@
     bgViewColor = [bgViewColor stringByReplacingOccurrencesOfString:@"#" withString:@""];
     topView.backgroundColor = [self colorWithHexString:bgViewColor];
     
+    
+    
     if([viewNum isEqualToString:@"2"]){
         menuButton.hidden = NO;
         backButton.hidden = YES;
@@ -60,6 +62,24 @@
     [rightButton addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:rightButton];
 
+    
+    //슬라이드 메뉴 & 백화면 이동에 대한 타이틀바 색 변경에 대한 코드값.
+    //이미지 추가 안드로이드와 동일합니다.
+    NSLog(@"bgViewColor :: %@" , bgViewColor);
+    if ([bgViewColor isEqualToString:@"ffffff"]) {
+        //탑바가 흰색일떄 글씨 색 검정색
+        titleText.textColor = [UIColor blackColor];
+        [rightButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+        [menuButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"tab_next"] forState:UIControlStateNormal];
+    }else{
+        titleText.textColor = [UIColor whiteColor];
+        [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [menuButton setImage:[UIImage imageNamed:@"main_top_menu_off"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+
+    }
     // 웹뷰
     secondWebView = [[UIWebView alloc] init];
     secondWebView.delegate = self;
